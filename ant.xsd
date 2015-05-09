@@ -46,15 +46,7 @@
         <xs:attribute name="unless" type="xs:string"/>
         <xs:attribute name="description" type="xs:string"/>
         <xs:attribute name="extensionOf" type="xs:string"/>
-        <xs:attribute name="onMissingExtensionPoint">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="fail"/>
-                    <xs:enumeration value="warn"/>
-                    <xs:enumeration value="ignore"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="onMissingExtensionPoint" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="failTask" mixed="true">
@@ -93,8 +85,8 @@
         <xs:attribute name="classpath" type="xs:string"/>
         <xs:attribute name="classpathref" type="xs:string"/>
         <xs:attribute name="prefix" type="xs:string"/>
-        <xs:attribute name="prefixValues" type="xs:boolean"/>
-        <xs:attribute name="relative" type="xs:boolean"/>
+        <xs:attribute name="prefixValues" type="xs:string"/>
+        <xs:attribute name="relative" type="xs:string"/>
         <xs:attribute name="basedir" type="xs:string"/>
     </xs:complexType>
 
@@ -105,14 +97,14 @@
                     <xs:attribute name="name" type="xs:string" use="required"/>
                     <xs:attribute name="default" type="xs:string"/>
                     <xs:attribute name="description" type="xs:string"/>
-                    <xs:attribute name="doubleexpanding" type="xs:boolean"/>
+                    <xs:attribute name="doubleexpanding" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
             <xs:element name="element" minOccurs="0">
                 <xs:complexType>
                     <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="optional" type="xs:boolean"/>
-                    <xs:attribute name="implicit" type="xs:boolean"/>
+                    <xs:attribute name="optional" type="xs:string"/>
+                    <xs:attribute name="implicit" type="xs:string"/>
                     <xs:attribute name="description" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
@@ -136,7 +128,7 @@
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="uri" type="xs:anyURI"/>
         <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="backtrace" type="xs:boolean"/>
+        <xs:attribute name="backtrace" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="echoTask">
@@ -145,20 +137,10 @@
                 <xs:attribute name="message" type="xs:string"/>
                 <xs:attribute name="file" type="xs:string"/>
                 <xs:attribute name="output" type="xs:string"/>
-                <xs:attribute name="append" type="xs:boolean"/>
-                <xs:attribute name="level">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="error"/>
-                            <xs:enumeration value="warning"/>
-                            <xs:enumeration value="info"/>
-                            <xs:enumeration value="verbose"/>
-                            <xs:enumeration value="debug"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
+                <xs:attribute name="append" type="xs:string"/>
+                <xs:attribute name="level" type="xs:string"/>
                 <xs:attribute name="encoding" type="xs:string"/>
-                <xs:attribute name="force" type="xs:boolean"/>
+                <xs:attribute name="force" type="xs:string"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
