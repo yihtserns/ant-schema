@@ -125,6 +125,7 @@
                         <xs:element name="junit" type="tns:junitTask"/>
                         <xs:element name="delete" type="tns:deleteTask"/>
                         <xs:element name="mkdir" type="tns:mkdirTask"/>
+                        <xs:element name="java" type="tns:javaTask"/>
                         <xs:any namespace="##other" processContents="lax" />
                     </xs:choice>
                 </xs:complexType>
@@ -181,6 +182,68 @@
         <xs:attribute name="dir" use="required"/>
     </xs:complexType>
 
+    <xs:complexType name="javaTask">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="jvmarg" type="tns:jvmarg"/>
+            <xs:element name="redirector">
+                <xs:complexType>
+                    <xs:attribute name="output" type="xs:string"/>
+                    <xs:attribute name="error" type="xs:string"/>
+                    <xs:attribute name="logError" type="xs:string"/>
+                    <xs:attribute name="append" type="xs:string"/>
+                    <xs:attribute name="createemptyfiles" type="xs:string"/>
+                    <xs:attribute name="outputproperty" type="xs:string"/>
+                    <xs:attribute name="errorproperty" type="xs:string"/>
+                    <xs:attribute name="input" type="xs:string"/>
+                    <xs:attribute name="inputstring" type="xs:string"/>
+                    <xs:attribute name="inputencoding" type="xs:string"/>
+                    <xs:attribute name="outputencoding" type="xs:string"/>
+                    <xs:attribute name="errorencoding" type="xs:string"/>
+                    <xs:attribute name="alwayslog" type="xs:string"/>
+                    <xs:attribute name="loginputstring" type="xs:string"/>
+                    <xs:attribute name="binaryOutput" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="classpath">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="path">
+                            <xs:complexType>
+                                <xs:attribute name="path" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="syspropertyset" type="tns:propertySet"/>
+            <xs:any namespace="##any" processContents="lax"/>
+        </xs:choice>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="jar" type="xs:string"/>
+        <xs:attribute name="args" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="fork" type="xs:string"/>
+        <xs:attribute name="spawn" type="xs:string"/>
+        <xs:attribute name="jvm" type="xs:string"/>
+        <xs:attribute name="jvmargs" type="xs:string"/>
+        <xs:attribute name="maxmemory" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="resultproperty" type="xs:string"/>
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="output" type="xs:string"/>
+        <xs:attribute name="error" type="xs:string"/>
+        <xs:attribute name="logError" type="xs:string"/>
+        <xs:attribute name="append" type="xs:string"/>
+        <xs:attribute name="outputproperty" type="xs:string"/>
+        <xs:attribute name="errorproperty" type="xs:string"/>
+        <xs:attribute name="input" type="xs:string"/>
+        <xs:attribute name="inputstring" type="xs:string"/>
+        <xs:attribute name="newenvironment" type="xs:string"/>
+        <xs:attribute name="timeout" type="xs:string"/>
+        <xs:attribute name="clonevm" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="junitTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="test">
@@ -211,17 +274,7 @@
                     <xs:attribute name="unless" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="jvmarg">
-                <xs:complexType>
-                    <xs:attribute name="value" type="xs:string"/>
-                    <xs:attribute name="file" type="xs:string"/>
-                    <xs:attribute name="path" type="xs:string"/>
-                    <xs:attribute name="pathref" type="xs:string"/>
-                    <xs:attribute name="line" type="xs:string"/>
-                    <xs:attribute name="prefix" type="xs:string"/>
-                    <xs:attribute name="suffix" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="jvmarg" type="tns:jvmarg"/>
             <xs:any namespace="##any" processContents="lax"/>
         </xs:choice>
         <xs:attribute name="printsummary" type="xs:string"/>
@@ -325,6 +378,16 @@
         <xs:attribute name="classpathref" type="xs:string"/>
         <xs:attribute name="from" type="xs:string"/>
         <xs:attribute name="to" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="jvmarg">
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="path" type="xs:string"/>
+        <xs:attribute name="pathref" type="xs:string"/>
+        <xs:attribute name="line" type="xs:string"/>
+        <xs:attribute name="prefix" type="xs:string"/>
+        <xs:attribute name="suffix" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
