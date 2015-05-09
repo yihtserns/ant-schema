@@ -404,7 +404,7 @@
     </xs:complexType>
 
     <xs:complexType name="copyTask">
-        <xs:sequence>
+        <xs:sequence minOccurs="0">
             <xs:element name="fileset">
                 <xs:complexType>
                     <xs:attribute name="dir" type="xs:string"/>
