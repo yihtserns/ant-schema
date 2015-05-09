@@ -37,6 +37,7 @@
         <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:element name="property" type="tns:propertyTask"/>
             <xs:element name="fail" type="tns:failTask"/>
+            <xs:element name="macrodef" type="tns:macrodefTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -94,6 +95,38 @@
         <xs:attribute name="prefixValues" type="xs:boolean"/>
         <xs:attribute name="relative" type="xs:boolean"/>
         <xs:attribute name="basedir" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="macrodefTask">
+        <xs:sequence>
+            <xs:element name="attribute" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="default" type="xs:string"/>
+                    <xs:attribute name="description" type="xs:string"/>
+                    <xs:attribute name="doubleexpanding" type="xs:boolean"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="element" minOccurs="0">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="optional" type="xs:boolean"/>
+                    <xs:attribute name="implicit" type="xs:boolean"/>
+                    <xs:attribute name="description" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sequential">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="property" type="tns:propertyTask"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="uri" type="xs:anyURI"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="backtrace" type="xs:boolean"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
