@@ -122,6 +122,8 @@
                         <xs:element name="property" type="tns:propertyTask"/>
                         <xs:element name="echo" type="tns:echoTask"/>
                         <xs:element name="junit" type="tns:junitTask"/>
+                        <xs:element name="delete" type="tns:deleteTask"/>
+                        <xs:element name="mkdir" type="tns:mkdirTask"/>
                         <xs:any namespace="##other" processContents="lax" />
                     </xs:choice>
                 </xs:complexType>
@@ -155,6 +157,27 @@
                 <xs:attribute name="force" type="xs:boolean"/>
             </xs:extension>
         </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="deleteTask">
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
+        <xs:attribute name="quiet" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="includeemptydirs" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="defaultexcludes" type="xs:string"/>
+        <xs:attribute name="deleteonexit" type="xs:string"/>
+        <xs:attribute name="removeNotFollowedSymlinks" type="xs:string"/>
+        <xs:attribute name="performGCOnFailedDelete" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="mkdirTask">
+        <xs:attribute name="dir" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="junitTask">
