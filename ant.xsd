@@ -44,6 +44,7 @@
             <xs:element name="mkdir" type="tns:mkdirTask"/>
             <xs:element name="touch" type="tns:touchTask"/>
             <xs:element name="antcall" type="tns:antcallTask"/>
+            <xs:element name="propertyfile" type="tns:propertyfileTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -342,6 +343,25 @@
         <xs:attribute name="target" type="xs:string" use="required"/>
         <xs:attribute name="inheritAll" type="xs:string"/>
         <xs:attribute name="inheritRefs" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertyfileTask">
+        <xs:sequence>
+            <xs:element name="entry">
+                <xs:complexType>
+                    <xs:attribute name="key" type="xs:string" use="required"/>
+                    <xs:attribute name="value" type="xs:string"/>
+                    <xs:attribute name="default" type="xs:string"/>
+                    <xs:attribute name="type" type="xs:string"/>
+                    <xs:attribute name="operation" type="xs:string"/>
+                    <xs:attribute name="pattern" type="xs:string"/>
+                    <xs:attribute name="unit" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="file" type="xs:string" use="required"/>
+        <xs:attribute name="comment" type="xs:string"/>
+        <xs:attribute name="jdkproperties" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
