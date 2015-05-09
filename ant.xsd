@@ -49,6 +49,7 @@
             <xs:element name="pathconvert" type="tns:pathconvertTask"/>
             <xs:element name="copy" type="tns:copyTask"/>
             <xs:element name="dirname" type="tns:dirnameTask"/>
+            <xs:element name="tempfile" type="tns:tempfileTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
@@ -440,6 +441,15 @@
     <xs:complexType name="dirnameTask">
         <xs:attribute name="file" type="xs:string" use="required"/>
         <xs:attribute name="property" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="tempfileTask">
+        <xs:attribute name="property" type="xs:string" use="required"/>
+        <xs:attribute name="destdir" type="xs:string"/>
+        <xs:attribute name="prefix" type="xs:string"/>
+        <xs:attribute name="suffix" type="xs:string"/>
+        <xs:attribute name="deleteonexit" type="xs:string"/>
+        <xs:attribute name="createfile" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
