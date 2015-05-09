@@ -47,6 +47,7 @@
             <xs:element name="propertyfile" type="tns:propertyfileTask"/>
             <xs:element name="available" type="tns:availableTask"/>
             <xs:element name="pathconvert" type="tns:pathconvertTask"/>
+            <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
