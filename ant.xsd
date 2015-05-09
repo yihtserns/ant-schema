@@ -52,6 +52,7 @@
             <xs:element name="tempfile" type="tns:tempfileTask"/>
             <xs:element name="manifest" type="tns:manifestTask"/>
             <xs:element name="basename" type="tns:basenameTask"/>
+            <xs:element name="ant" type="tns:antTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
@@ -466,6 +467,20 @@
         <xs:attribute name="file" type="xs:string" use="required"/>
         <xs:attribute name="property" type="xs:string" use="required"/>
         <xs:attribute name="suffix" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="antTask">
+        <xs:sequence>
+            <xs:element name="propertyset" type="tns:propertySet"/>
+        </xs:sequence>
+        <xs:attribute name="antfile" type="xs:string"/>
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="output" type="xs:string"/>
+        <xs:attribute name="inheritall" type="xs:string"/>
+        <xs:attribute name="inheritAll" type="xs:string"/>
+        <xs:attribute name="inheritRefs" type="xs:string"/>
+        <xs:attribute name="useNativeBasedir" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
