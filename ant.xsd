@@ -46,6 +46,7 @@
             <xs:element name="antcall" type="tns:antcallTask"/>
             <xs:element name="propertyfile" type="tns:propertyfileTask"/>
             <xs:element name="available" type="tns:availableTask"/>
+            <xs:element name="pathconvert" type="tns:pathconvertTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -293,20 +294,39 @@
     </xs:complexType>
     
     <xs:complexType name="pathconvertTask">
-        <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
             <xs:element name="path">
                 <xs:complexType>
                     <xs:attribute name="path" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="chainedmapper" type="tns:chainedmapper" minOccurs="0"/>
-            <xs:element name="map" minOccurs="0">
+            <xs:element name="chainedmapper" type="tns:chainedmapper"/>
+            <xs:element name="map">
                 <xs:complexType>
                     <xs:attribute name="from" type="xs:string" use="required"/>
                     <xs:attribute name="to" type="xs:string" use="required"/>
                 </xs:complexType>
             </xs:element>
-        </xs:sequence>
+            <xs:element name="dirset">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="include">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="dir" type="xs:string" use="required"/>
+                    <xs:attribute name="includes" type="xs:string"/>
+                    <xs:attribute name="includesfile" type="xs:string"/>
+                    <xs:attribute name="excludes" type="xs:string"/>
+                    <xs:attribute name="excludesfile" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="followsymlinks" type="xs:string"/>
+                    <xs:attribute name="erroronmissingdir" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
         <xs:attribute name="targetos" type="xs:string"/>
         <xs:attribute name="dirsep" type="xs:string"/>
         <xs:attribute name="pathsep" type="xs:string"/>
