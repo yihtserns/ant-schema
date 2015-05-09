@@ -47,6 +47,7 @@
             <xs:element name="propertyfile" type="tns:propertyfileTask"/>
             <xs:element name="available" type="tns:availableTask"/>
             <xs:element name="pathconvert" type="tns:pathconvertTask"/>
+            <xs:element name="copy" type="tns:copyTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
@@ -398,6 +399,41 @@
         <xs:attribute name="type" type="xs:string"/>
         <xs:attribute name="ignoresystemclasses" type="xs:string"/>
         <xs:attribute name="searchparents" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="copyTask">
+        <xs:sequence>
+            <xs:element name="fileset">
+                <xs:complexType>
+                    <xs:attribute name="dir" type="xs:string"/>
+                    <xs:attribute name="file" type="xs:string"/>
+                    <xs:attribute name="defaultexcludes" type="xs:string"/>
+                    <xs:attribute name="includes" type="xs:string"/>
+                    <xs:attribute name="includesfile" type="xs:string"/>
+                    <xs:attribute name="excludes" type="xs:string"/>
+                    <xs:attribute name="excludesfile" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="followsymlinks" type="xs:string"/>
+                    <xs:attribute name="erroronmissingdir" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="preservelastmodified" type="xs:string"/>
+        <xs:attribute name="tofile" type="xs:string"/>
+        <xs:attribute name="todir" type="xs:string"/>
+        <xs:attribute name="overwrite" type="xs:string"/>
+        <xs:attribute name="force" type="xs:string"/>
+        <xs:attribute name="filtering" type="xs:string"/>
+        <xs:attribute name="flatten" type="xs:string"/>
+        <xs:attribute name="includeEmptyDirs" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="quiet" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="outputencoding" type="xs:string"/>
+        <xs:attribute name="enablemultiplemappings" type="xs:string"/>
+        <xs:attribute name="granularity" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
