@@ -48,6 +48,7 @@
             <xs:element name="available" type="tns:availableTask"/>
             <xs:element name="pathconvert" type="tns:pathconvertTask"/>
             <xs:element name="copy" type="tns:copyTask"/>
+            <xs:element name="dirname" type="tns:dirnameTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
@@ -434,6 +435,11 @@
         <xs:attribute name="outputencoding" type="xs:string"/>
         <xs:attribute name="enablemultiplemappings" type="xs:string"/>
         <xs:attribute name="granularity" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="dirnameTask">
+        <xs:attribute name="file" type="xs:string" use="required"/>
+        <xs:attribute name="property" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
