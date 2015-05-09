@@ -34,6 +34,9 @@
     </xs:complexType>
 
     <xs:complexType name="target">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="property" type="tns:propertyTask"/>
+        </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
         <xs:attribute name="if" type="xs:string"/>
@@ -87,6 +90,23 @@
         <xs:attribute name="atleast" type="xs:string"/>
         <xs:attribute name="exactly" type="xs:string"/>
         <xs:attribute name="property" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertyTask">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="location" type="xs:string"/>
+        <xs:attribute name="refid" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="url" type="xs:string"/>
+        <xs:attribute name="environment" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="prefix" type="xs:string"/>
+        <xs:attribute name="prefixValues" type="xs:boolean"/>
+        <xs:attribute name="relative" type="xs:boolean"/>
+        <xs:attribute name="basedir" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
