@@ -83,9 +83,11 @@
     </xs:complexType>
 
     <xs:complexType name="antversionTask">
-        <xs:attribute name="atleast" type="xs:string"/>
-        <xs:attribute name="exactly" type="xs:string"/>
-        <xs:attribute name="property" type="xs:string"/>
+        <xs:complexContent>
+            <xs:extension base="tns:antversion">
+                <xs:attribute name="property" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="propertyTask">
@@ -489,7 +491,11 @@
 
     <xs:complexType name="conditions">
         <xs:choice maxOccurs="unbounded">
+            <xs:element name="not" type="tns:conditions"/>
+            <xs:element name="or" type="tns:conditions"/>
+            <xs:element name="and" type="tns:conditions"/>
             <xs:element name="available" type="tns:available"/>
+            <xs:element name="antversion" type="tns:antversion"/>
             <xs:element name="isset">
                 <xs:complexType>
                     <xs:attribute name="property" use="required"/>
@@ -504,45 +510,22 @@
                     <xs:attribute name="singleline" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="not">
+            <xs:element name="equals">
                 <xs:complexType>
-                    <xs:choice>
-                        <xs:element name="antversion" type="tns:antversionTask"/>
-                        <xs:element name="matches">
-                            <xs:complexType>
-                                <xs:attribute name="string" type="xs:string" use="required"/>
-                                <xs:attribute name="pattern" type="xs:string"/>
-                                <xs:attribute name="casesensitive" type="xs:string"/>
-                                <xs:attribute name="multiline" type="xs:string"/>
-                                <xs:attribute name="singleline" type="xs:string"/>
-                            </xs:complexType>
-                        </xs:element>
-                        <xs:element name="equals">
-                            <xs:complexType>
-                                <xs:attribute name="arg1" type="xs:string" use="required"/>
-                                <xs:attribute name="arg2" type="xs:string" use="required"/>
-                                <xs:attribute name="casesensitive" type="xs:string"/>
-                                <xs:attribute name="trim" type="xs:string"/>
-                                <xs:attribute name="forcestring" type="xs:string"/>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:choice>
+                    <xs:attribute name="arg1" type="xs:string" use="required"/>
+                    <xs:attribute name="arg2" type="xs:string" use="required"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="trim" type="xs:string"/>
+                    <xs:attribute name="forcestring" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="or">
+            <xs:element name="contains">
                 <xs:complexType>
-                    <xs:choice maxOccurs="unbounded">
-                        <xs:element name="contains">
-                            <xs:complexType>
-                                <xs:attribute name="string"  type="xs:string" use="required"/>
-                                <xs:attribute name="substring"  type="xs:string" use="required"/>
-                                <xs:attribute name="casesensitive" type="xs:string"/>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:choice>
+                    <xs:attribute name="string"  type="xs:string" use="required"/>
+                    <xs:attribute name="substring"  type="xs:string" use="required"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="and" type="tns:conditions"/>
             <xs:element name="istrue">
                 <xs:complexType>
                     <xs:attribute name="value" type="xs:string" use="required"/>
@@ -648,6 +631,11 @@
         <xs:attribute name="type" type="xs:string"/>
         <xs:attribute name="ignoresystemclasses" type="xs:string"/>
         <xs:attribute name="searchparents" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="antversion">
+        <xs:attribute name="atleast" type="xs:string"/>
+        <xs:attribute name="exactly" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
