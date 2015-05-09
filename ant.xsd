@@ -127,6 +127,7 @@
                         <xs:element name="mkdir" type="tns:mkdirTask"/>
                         <xs:element name="java" type="tns:javaTask"/>
                         <xs:element name="pathconvert" type="tns:pathconvertTask"/>
+                        <xs:element name="taskdef" type="tns:typedefTask"/>
                         <xs:any namespace="##other" processContents="lax" />
                     </xs:choice>
                 </xs:complexType>
@@ -324,6 +325,21 @@
         <xs:attribute name="refid" type="xs:string"/>
         <xs:attribute name="setonempty" type="xs:string"/>
         <xs:attribute name="preserveduplicates" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="typedefTask">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="format" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="loaderRef" type="xs:string"/>
+        <xs:attribute name="onerror" type="xs:string"/>
+        <xs:attribute name="adapter" type="xs:string"/>
+        <xs:attribute name="adaptto" type="xs:string"/>
+        <xs:attribute name="uri" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
