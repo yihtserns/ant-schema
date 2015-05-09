@@ -45,6 +45,7 @@
             <xs:element name="touch" type="tns:touchTask"/>
             <xs:element name="antcall" type="tns:antcallTask"/>
             <xs:element name="propertyfile" type="tns:propertyfileTask"/>
+            <xs:element name="available" type="tns:availableTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -362,6 +363,20 @@
         <xs:attribute name="file" type="xs:string" use="required"/>
         <xs:attribute name="comment" type="xs:string"/>
         <xs:attribute name="jdkproperties" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="availableTask">
+        <xs:attribute name="property" type="xs:string" use="required"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="filepath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="ignoresystemclasses" type="xs:string"/>
+        <xs:attribute name="searchparents" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
