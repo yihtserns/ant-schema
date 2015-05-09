@@ -118,6 +118,7 @@
             <xs:element name="sequential">
                 <xs:complexType>
                     <xs:choice maxOccurs="unbounded">
+                        <xs:element name="condition" type="tns:conditionTask"/>
                         <xs:element name="property" type="tns:propertyTask"/>
                         <xs:element name="echo" type="tns:echoTask"/>
                         <xs:element name="junit" type="tns:junitTask"/>
@@ -224,7 +225,12 @@
     </xs:complexType>
 
     <xs:complexType name="condition">
-        <xs:sequence>
+        <xs:choice>
+            <xs:element name="isset">
+                <xs:complexType>
+                    <xs:attribute name="property" use="required"/>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="not">
                 <xs:complexType>
                     <xs:sequence>
@@ -232,7 +238,7 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-        </xs:sequence>
+        </xs:choice>
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
