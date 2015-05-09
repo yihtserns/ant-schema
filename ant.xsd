@@ -117,9 +117,10 @@
             </xs:element>
             <xs:element name="sequential">
                 <xs:complexType>
-                    <xs:sequence>
+                    <xs:choice>
                         <xs:element name="property" type="tns:propertyTask"/>
-                    </xs:sequence>
+                        <xs:element name="echo" type="tns:echoTask"/>
+                    </xs:choice>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -127,6 +128,30 @@
         <xs:attribute name="uri" type="xs:anyURI"/>
         <xs:attribute name="description" type="xs:string"/>
         <xs:attribute name="backtrace" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:complexType name="echoTask">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="message" type="xs:string"/>
+                <xs:attribute name="file" type="xs:string"/>
+                <xs:attribute name="output" type="xs:string"/>
+                <xs:attribute name="append" type="xs:boolean"/>
+                <xs:attribute name="level">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="error"/>
+                            <xs:enumeration value="warning"/>
+                            <xs:enumeration value="info"/>
+                            <xs:enumeration value="verbose"/>
+                            <xs:enumeration value="debug"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="encoding" type="xs:string"/>
+                <xs:attribute name="force" type="xs:boolean"/>
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="condition">
