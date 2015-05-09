@@ -175,6 +175,7 @@
         <xs:attribute name="excludesfile" type="xs:string"/>
         <xs:attribute name="defaultexcludes" type="xs:string"/>
         <xs:attribute name="deleteonexit" type="xs:string"/>
+        <xs:attribute name="followsymlinks" type="xs:string"/>
         <xs:attribute name="removeNotFollowedSymlinks" type="xs:string"/>
         <xs:attribute name="performGCOnFailedDelete" type="xs:string"/>
     </xs:complexType>
