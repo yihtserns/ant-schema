@@ -117,9 +117,10 @@
             </xs:element>
             <xs:element name="sequential">
                 <xs:complexType>
-                    <xs:choice>
+                    <xs:choice maxOccurs="unbounded">
                         <xs:element name="property" type="tns:propertyTask"/>
                         <xs:element name="echo" type="tns:echoTask"/>
+                        <xs:element name="junit" type="tns:junitTask"/>
                         <xs:any namespace="##other" processContents="lax" />
                     </xs:choice>
                 </xs:complexType>
@@ -155,6 +156,73 @@
         </xs:simpleContent>
     </xs:complexType>
 
+    <xs:complexType name="junitTask">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="test">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="methods" type="xs:string"/>
+                    <xs:attribute name="fork" type="xs:string"/>
+                    <xs:attribute name="haltonerror" type="xs:string"/>
+                    <xs:attribute name="errorproperty" type="xs:string"/>
+                    <xs:attribute name="haltonfailure" type="xs:string"/>
+                    <xs:attribute name="failureproperty" type="xs:string"/>
+                    <xs:attribute name="filtertrace" type="xs:string"/>
+                    <xs:attribute name="todir" type="xs:string"/>
+                    <xs:attribute name="outfile" type="xs:string"/>
+                    <xs:attribute name="if" type="xs:string"/>
+                    <xs:attribute name="unless" type="xs:string"/>
+                    <xs:attribute name="skipNonTests" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="syspropertyset" type="tns:propertySet"/>
+            <xs:element name="formatter">
+                <xs:complexType>
+                    <xs:attribute name="type" type="xs:string"/>
+                    <xs:attribute name="classname" type="xs:string"/>
+                    <xs:attribute name="extension" type="xs:string"/>
+                    <xs:attribute name="usefile" type="xs:string"/>
+                    <xs:attribute name="if" type="xs:string"/>
+                    <xs:attribute name="unless" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="jvmarg">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string"/>
+                    <xs:attribute name="file" type="xs:string"/>
+                    <xs:attribute name="path" type="xs:string"/>
+                    <xs:attribute name="pathref" type="xs:string"/>
+                    <xs:attribute name="line" type="xs:string"/>
+                    <xs:attribute name="prefix" type="xs:string"/>
+                    <xs:attribute name="suffix" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:any namespace="##any" processContents="lax"/>
+        </xs:choice>
+        <xs:attribute name="printsummary" type="xs:string"/>
+        <xs:attribute name="fork" type="xs:string"/>
+        <xs:attribute name="forkmode" type="xs:string"/>
+        <xs:attribute name="haltonerror" type="xs:string"/>
+        <xs:attribute name="errorproperty" type="xs:string"/>
+        <xs:attribute name="haltonfailure" type="xs:string"/>
+        <xs:attribute name="failureproperty" type="xs:string"/>
+        <xs:attribute name="filtertrace" type="xs:string"/>
+        <xs:attribute name="timeout" type="xs:string"/>
+        <xs:attribute name="maxmemory" type="xs:string"/>
+        <xs:attribute name="jvm" type="xs:string"/>
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="newenvironment" type="xs:string"/>
+        <xs:attribute name="includeantruntime" type="xs:string"/>
+        <xs:attribute name="showoutput" type="xs:string"/>
+        <xs:attribute name="outputtoformatters" type="xs:string"/>
+        <xs:attribute name="tempdir" type="xs:string"/>
+        <xs:attribute name="reloading" type="xs:string"/>
+        <xs:attribute name="clonevm" type="xs:string"/>
+        <xs:attribute name="logfailedtests" type="xs:string"/>
+        <xs:attribute name="enableTestListenerEvents" type="xs:string"/>
+        <xs:attribute name="threads" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="condition">
         <xs:sequence>
             <xs:element name="not">
@@ -167,6 +235,31 @@
         </xs:sequence>
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="else" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertySet">
+        <xs:sequence>
+            <xs:element name="propertyref" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="prefix" type="xs:string"/>
+                    <xs:attribute name="regex" type="xs:string"/>
+                    <xs:attribute name="builtin" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="mapper" type="tns:mapper"/>
+        </xs:sequence>
+        <xs:attribute name="dynamic" type="xs:string"/>
+        <xs:attribute name="negate" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="mapper">
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="from" type="xs:string"/>
+        <xs:attribute name="to" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
