@@ -23,9 +23,10 @@
     <xs:element name="project" type="tns:antProject"/>
 
     <xs:complexType name="antProject">
-        <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
             <xs:element name="fail" type="tns:failTask"/>
-        </xs:sequence>
+            <xs:element name="condition" type="tns:conditionTask"/>
+        </xs:choice>
         <xs:attribute name="basedir" type="xs:string"/>
         <xs:attribute name="default" type="xs:string"/>
         <xs:attribute name="name" type="xs:string"/>
@@ -33,7 +34,7 @@
 
     <xs:complexType name="failTask">
         <xs:sequence>
-            <xs:element name="condition" type="tns:conditionTask"/>
+            <xs:element name="condition" type="tns:condition"/>
         </xs:sequence>
         <xs:attribute name="message" type="xs:string"/>
         <xs:attribute name="if" type="xs:string"/>
@@ -42,6 +43,14 @@
     </xs:complexType>
 
     <xs:complexType name="conditionTask">
+        <xs:complexContent>
+            <xs:extension base="tns:condition">
+                <xs:attribute name="property" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="condition">
         <xs:sequence>
             <xs:element name="not">
                 <xs:complexType>
@@ -51,7 +60,6 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="property" type="xs:string" use="required"/>
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
