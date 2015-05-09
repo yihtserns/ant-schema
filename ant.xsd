@@ -397,17 +397,12 @@
     </xs:complexType>
 
     <xs:complexType name="availableTask">
-        <xs:attribute name="property" type="xs:string" use="required"/>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="classname" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="resource" type="xs:string"/>
-        <xs:attribute name="classpath" type="xs:string"/>
-        <xs:attribute name="filepath" type="xs:string"/>
-        <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="type" type="xs:string"/>
-        <xs:attribute name="ignoresystemclasses" type="xs:string"/>
-        <xs:attribute name="searchparents" type="xs:string"/>
+        <xs:complexContent>
+            <xs:extension base="tns:available">
+                <xs:attribute name="property" type="xs:string" use="required"/>
+                <xs:attribute name="value" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="copyTask">
@@ -494,6 +489,7 @@
 
     <xs:complexType name="conditions">
         <xs:choice maxOccurs="unbounded">
+            <xs:element name="available" type="tns:available"/>
             <xs:element name="isset">
                 <xs:complexType>
                     <xs:attribute name="property" use="required"/>
@@ -640,6 +636,18 @@
         <xs:attribute name="casesensitive" type="xs:string"/>
         <xs:attribute name="followsymlinks" type="xs:string"/>
         <xs:attribute name="erroronmissingdir" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="available">
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="filepath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="ignoresystemclasses" type="xs:string"/>
+        <xs:attribute name="searchparents" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
