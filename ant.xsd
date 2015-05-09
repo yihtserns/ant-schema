@@ -39,6 +39,10 @@
             <xs:element name="fail" type="tns:failTask"/>
             <xs:element name="macrodef" type="tns:macrodefTask"/>
             <xs:element name="condition" type="tns:conditionTask"/>
+            <xs:element name="delete" type="tns:deleteTask"/>
+            <xs:element name="echo" type="tns:echoTask"/>
+            <xs:element name="mkdir" type="tns:mkdirTask"/>
+            <xs:element name="touch" type="tns:touchTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -322,6 +326,15 @@
         <xs:attribute name="adapter" type="xs:string"/>
         <xs:attribute name="adaptto" type="xs:string"/>
         <xs:attribute name="uri" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="touchTask">
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="millis" type="xs:string"/>
+        <xs:attribute name="datetime" type="xs:string"/>
+        <xs:attribute name="pattern" type="xs:string"/>
+        <xs:attribute name="mkdirs" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
