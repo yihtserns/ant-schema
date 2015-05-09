@@ -126,6 +126,7 @@
                         <xs:element name="delete" type="tns:deleteTask"/>
                         <xs:element name="mkdir" type="tns:mkdirTask"/>
                         <xs:element name="java" type="tns:javaTask"/>
+                        <xs:element name="pathconvert" type="tns:pathconvertTask"/>
                         <xs:any namespace="##other" processContents="lax" />
                     </xs:choice>
                 </xs:complexType>
@@ -300,6 +301,30 @@
         <xs:attribute name="enableTestListenerEvents" type="xs:string"/>
         <xs:attribute name="threads" type="xs:string"/>
     </xs:complexType>
+    
+    <xs:complexType name="pathconvertTask">
+        <xs:sequence>
+            <xs:element name="path">
+                <xs:complexType>
+                    <xs:attribute name="path" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="chainedmapper" type="tns:chainedmapper" minOccurs="0"/>
+            <xs:element name="map" minOccurs="0">
+                <xs:complexType>
+                    <xs:attribute name="from" type="xs:string" use="required"/>
+                    <xs:attribute name="to" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="targetos" type="xs:string"/>
+        <xs:attribute name="dirsep" type="xs:string"/>
+        <xs:attribute name="pathsep" type="xs:string"/>
+        <xs:attribute name="property" type="xs:string"/>
+        <xs:attribute name="refid" type="xs:string"/>
+        <xs:attribute name="setonempty" type="xs:string"/>
+        <xs:attribute name="preserveduplicates" type="xs:string"/>
+    </xs:complexType>
 
     <xs:complexType name="condition">
         <xs:choice>
@@ -378,6 +403,32 @@
         <xs:attribute name="classpathref" type="xs:string"/>
         <xs:attribute name="from" type="xs:string"/>
         <xs:attribute name="to" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="chainedmapper">
+        <xs:sequence>
+            <xs:element name="flattenmapper">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="filtermapper">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="replacestring">
+                            <xs:complexType>
+                                <xs:attribute name="from" use="required"/>
+                                <xs:attribute name="to" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="globmapper">
+                <xs:complexType>
+                    <xs:attribute name="from" use="required"/>
+                    <xs:attribute name="to" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="jvmarg">
