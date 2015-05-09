@@ -360,9 +360,18 @@
             </xs:element>
             <xs:element name="not">
                 <xs:complexType>
-                    <xs:sequence>
+                    <xs:choice>
                         <xs:element name="antversion" type="tns:antversionTask"/>
-                    </xs:sequence>
+                        <xs:element name="matches">
+                            <xs:complexType>
+                                <xs:attribute name="string" type="xs:string" use="required"/>
+                                <xs:attribute name="pattern" type="xs:string"/>
+                                <xs:attribute name="casesensitive" type="xs:string"/>
+                                <xs:attribute name="multiline" type="xs:string"/>
+                                <xs:attribute name="singleline" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
                 </xs:complexType>
             </xs:element>
             <xs:element name="or">
@@ -379,6 +388,11 @@
                 </xs:complexType>
             </xs:element>
             <xs:element name="istrue">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isfalse">
                 <xs:complexType>
                     <xs:attribute name="value" type="xs:string" use="required"/>
                 </xs:complexType>
