@@ -43,6 +43,7 @@
             <xs:element name="echo" type="tns:echoTask"/>
             <xs:element name="mkdir" type="tns:mkdirTask"/>
             <xs:element name="touch" type="tns:touchTask"/>
+            <xs:element name="antcall" type="tns:antcallTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -335,6 +336,12 @@
         <xs:attribute name="pattern" type="xs:string"/>
         <xs:attribute name="mkdirs" type="xs:string"/>
         <xs:attribute name="verbose" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="antcallTask">
+        <xs:attribute name="target" type="xs:string" use="required"/>
+        <xs:attribute name="inheritAll" type="xs:string"/>
+        <xs:attribute name="inheritRefs" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
