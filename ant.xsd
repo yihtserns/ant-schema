@@ -468,7 +468,16 @@
     </xs:complexType>
 
     <xs:complexType name="condition">
-        <xs:choice>
+        <xs:complexContent>
+            <xs:extension base="tns:conditions">
+                <xs:attribute name="value" type="xs:string"/>
+                <xs:attribute name="else" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="conditions">
+        <xs:choice maxOccurs="unbounded">
             <xs:element name="isset">
                 <xs:complexType>
                     <xs:attribute name="property" use="required"/>
@@ -496,6 +505,15 @@
                                 <xs:attribute name="singleline" type="xs:string"/>
                             </xs:complexType>
                         </xs:element>
+                        <xs:element name="equals">
+                            <xs:complexType>
+                                <xs:attribute name="arg1" type="xs:string" use="required"/>
+                                <xs:attribute name="arg2" type="xs:string" use="required"/>
+                                <xs:attribute name="casesensitive" type="xs:string"/>
+                                <xs:attribute name="trim" type="xs:string"/>
+                                <xs:attribute name="forcestring" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
                     </xs:choice>
                 </xs:complexType>
             </xs:element>
@@ -512,6 +530,7 @@
                     </xs:choice>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="and" type="tns:conditions"/>
             <xs:element name="istrue">
                 <xs:complexType>
                     <xs:attribute name="value" type="xs:string" use="required"/>
@@ -531,8 +550,6 @@
                 </xs:complexType>
             </xs:element>
         </xs:choice>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="propertySet">
