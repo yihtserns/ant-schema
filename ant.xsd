@@ -38,6 +38,7 @@
             <xs:element name="property" type="tns:propertyTask"/>
             <xs:element name="fail" type="tns:failTask"/>
             <xs:element name="macrodef" type="tns:macrodefTask"/>
+            <xs:element name="condition" type="tns:conditionTask"/>
         </xs:choice>
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="depends" type="xs:string"/>
@@ -268,6 +269,32 @@
                     <xs:sequence>
                         <xs:element name="antversion" type="tns:antversionTask"/>
                     </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="or">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:element name="contains">
+                            <xs:complexType>
+                                <xs:attribute name="string"  type="xs:string" use="required"/>
+                                <xs:attribute name="substring"  type="xs:string" use="required"/>
+                                <xs:attribute name="casesensitive" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="istrue">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="os">
+                <xs:complexType>
+                    <xs:attribute name="family" type="xs:string"/>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="arch" type="xs:string"/>
+                    <xs:attribute name="version" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
         </xs:choice>
