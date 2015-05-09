@@ -231,6 +231,15 @@
                     <xs:attribute name="property" use="required"/>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="matches">
+                <xs:complexType>
+                    <xs:attribute name="string" type="xs:string" use="required"/>
+                    <xs:attribute name="pattern" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="multiline" type="xs:string"/>
+                    <xs:attribute name="singleline" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="not">
                 <xs:complexType>
                     <xs:sequence>
