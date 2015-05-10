@@ -70,6 +70,7 @@
             <xs:element name="java" type="tns:javaTask"/>
             <xs:element name="taskdef" type="tns:typedefTask"/>
             <xs:element name="javac" type="tns:javacTask"/>
+            <xs:element name="jar" type="tns:jarTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
     </xs:group>
@@ -445,20 +446,12 @@
     </xs:complexType>
 
     <xs:complexType name="manifestTask">
-        <xs:sequence>
-            <xs:element name="attribute">
-                <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="value" type="xs:string" use="required"/>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="file" type="xs:string" use="required"/>
-        <xs:attribute name="mode" type="xs:string"/>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
-        <xs:attribute name="unless" type="xs:string"/>
-        <xs:attribute name="flattenAttributes" type="xs:string"/>
+        <xs:complexContent>
+            <xs:extension base="tns:manifest">
+                <xs:attribute name="file" type="xs:string" use="required"/>
+                <xs:attribute name="mode" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="basenameTask">
@@ -519,6 +512,41 @@
         <xs:attribute name="updatedProperty" type="xs:string"/>
         <xs:attribute name="includeDestClasses" type="xs:string"/>
         <xs:attribute name="createMissingPackageInfoClass" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="jarTask">
+        <xs:sequence>
+            <xs:element name="manifest" type="tns:manifest"/>
+        </xs:sequence>
+        <xs:attribute name="destfile" type="xs:string" use="required"/>
+        <xs:attribute name="basedir" type="xs:string"/>
+        <xs:attribute name="compress" type="xs:string"/>
+        <xs:attribute name="keepcompression" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="filesonly" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="defaultexcludes" type="xs:string"/>
+        <xs:attribute name="manifest" type="xs:string"/>
+        <xs:attribute name="filesetmanifest" type="xs:string"/>
+        <xs:attribute name="update" type="xs:string"/>
+        <xs:attribute name="whenmanifestonly" type="xs:string"/>
+        <xs:attribute name="duplicate" type="xs:string"/>
+        <xs:attribute name="index" type="xs:string"/>
+        <xs:attribute name="indexMetaInf" type="xs:string"/>
+        <xs:attribute name="manifestencoding" type="xs:string"/>
+        <xs:attribute name="roundup" type="xs:string"/>
+        <xs:attribute name="level" type="xs:string"/>
+        <xs:attribute name="strict" type="xs:string"/>
+        <xs:attribute name="preserve0permissions" type="xs:string"/>
+        <xs:attribute name="useLanguageEncodingFlag" type="xs:string"/>
+        <xs:attribute name="createUnicodeExtraFields" type="xs:string"/>
+        <xs:attribute name="fallbacktoUTF8" type="xs:string"/>
+        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
+        <xs:attribute name="flattenAttributes" type="xs:string"/>
+        <xs:attribute name="zip64Mode" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
@@ -690,6 +718,21 @@
     <xs:complexType name="antversion">
         <xs:attribute name="atleast" type="xs:string"/>
         <xs:attribute name="exactly" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="manifest">
+        <xs:sequence>
+            <xs:element name="attribute">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
+        <xs:attribute name="unless" type="xs:string"/>
+        <xs:attribute name="flattenAttributes" type="xs:string"/>
     </xs:complexType>
 
 </xs:schema>
