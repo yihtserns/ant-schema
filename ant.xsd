@@ -23,7 +23,7 @@
     <xs:element name="project">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element name="target" type="tns:target"/>
+                <xs:element ref="tns:target"/>
                 <xs:element name="fail" type="tns:failTask"/>
                 <xs:element name="condition" type="tns:conditionTask"/>
                 <xs:element name="property" type="tns:propertyTask"/>
@@ -34,18 +34,20 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="target">
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:group ref="tns:tasks"/>
-        </xs:choice>
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="depends" type="xs:string"/>
-        <xs:attribute name="if" type="xs:string"/>
-        <xs:attribute name="unless" type="xs:string"/>
-        <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="extensionOf" type="xs:string"/>
-        <xs:attribute name="onMissingExtensionPoint" type="xs:string"/>
-    </xs:complexType>
+    <xs:element name="target">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:group ref="tns:tasks"/>
+            </xs:choice>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="depends" type="xs:string"/>
+            <xs:attribute name="if" type="xs:string"/>
+            <xs:attribute name="unless" type="xs:string"/>
+            <xs:attribute name="description" type="xs:string"/>
+            <xs:attribute name="extensionOf" type="xs:string"/>
+            <xs:attribute name="onMissingExtensionPoint" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
     <xs:group name="tasks">
         <xs:choice>
