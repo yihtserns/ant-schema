@@ -49,51 +49,24 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:group name="tasks">
-        <xs:choice>
-            <xs:element name="property" type="tns:propertyTask"/>
-            <xs:element name="fail" type="tns:failTask"/>
-            <xs:element name="macrodef" type="tns:macrodefTask"/>
-            <xs:element name="condition" type="tns:conditionTask"/>
-            <xs:element name="delete" type="tns:deleteTask"/>
-            <xs:element name="echo" type="tns:echoTask"/>
-            <xs:element name="mkdir" type="tns:mkdirTask"/>
-            <xs:element name="touch" type="tns:touchTask"/>
-            <xs:element name="antcall" type="tns:antcallTask"/>
-            <xs:element name="propertyfile" type="tns:propertyfileTask"/>
-            <xs:element name="available" type="tns:availableTask"/>
-            <xs:element name="pathconvert" type="tns:pathconvertTask"/>
-            <xs:element name="copy" type="tns:copyTask"/>
-            <xs:element name="dirname" type="tns:dirnameTask"/>
-            <xs:element name="tempfile" type="tns:tempfileTask"/>
-            <xs:element name="manifest" type="tns:manifestTask"/>
-            <xs:element name="basename" type="tns:basenameTask"/>
-            <xs:element name="ant" type="tns:antTask"/>
-            <xs:element name="junit" type="tns:junitTask"/>
-            <xs:element name="java" type="tns:javaTask"/>
-            <xs:element name="taskdef" type="tns:typedefTask"/>
-            <xs:element name="javac" type="tns:javacTask"/>
-            <xs:element name="jar" type="tns:jarTask"/>
-            <xs:any namespace="##other" processContents="lax" />
-        </xs:choice>
-    </xs:group>
-
-    <xs:complexType name="failTask" mixed="true">
-        <xs:choice minOccurs="0">
-            <xs:element name="condition" type="tns:condition"/>
-        </xs:choice>
-        <xs:attribute name="message" type="xs:string"/>
-        <xs:attribute name="if" type="xs:string"/>
-        <xs:attribute name="unless" type="xs:string"/>
-        <xs:attribute name="status" type="xs:string"/>
+    <xs:complexType name="antTask">
+        <xs:sequence>
+            <xs:element name="propertyset" type="tns:propertySet"/>
+        </xs:sequence>
+        <xs:attribute name="antfile" type="xs:string"/>
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="output" type="xs:string"/>
+        <xs:attribute name="inheritall" type="xs:string"/>
+        <xs:attribute name="inheritAll" type="xs:string"/>
+        <xs:attribute name="inheritRefs" type="xs:string"/>
+        <xs:attribute name="useNativeBasedir" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="conditionTask">
-        <xs:complexContent>
-            <xs:extension base="tns:condition">
-                <xs:attribute name="property" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
+    <xs:complexType name="antcallTask">
+        <xs:attribute name="target" type="xs:string" use="required"/>
+        <xs:attribute name="inheritAll" type="xs:string"/>
+        <xs:attribute name="inheritRefs" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="antversionTask">
@@ -104,67 +77,49 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="propertyTask">
-        <xs:attribute name="name" type="xs:string"/>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="location" type="xs:string"/>
-        <xs:attribute name="refid" type="xs:string"/>
-        <xs:attribute name="resource" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="url" type="xs:string"/>
-        <xs:attribute name="environment" type="xs:string"/>
-        <xs:attribute name="classpath" type="xs:string"/>
-        <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="prefix" type="xs:string"/>
-        <xs:attribute name="prefixValues" type="xs:string"/>
-        <xs:attribute name="relative" type="xs:string"/>
-        <xs:attribute name="basedir" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="macrodefTask">
-        <xs:sequence>
-            <xs:element name="attribute" maxOccurs="unbounded">
-                <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="default" type="xs:string"/>
-                    <xs:attribute name="description" type="xs:string"/>
-                    <xs:attribute name="doubleexpanding" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="element" minOccurs="0">
-                <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="optional" type="xs:string"/>
-                    <xs:attribute name="implicit" type="xs:string"/>
-                    <xs:attribute name="description" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="sequential">
-                <xs:complexType>
-                    <xs:choice maxOccurs="unbounded">
-                        <xs:group ref="tns:tasks"/>
-                    </xs:choice>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="uri" type="xs:anyURI"/>
-        <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="backtrace" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="echoTask">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="message" type="xs:string"/>
-                <xs:attribute name="file" type="xs:string"/>
-                <xs:attribute name="output" type="xs:string"/>
-                <xs:attribute name="append" type="xs:string"/>
-                <xs:attribute name="level" type="xs:string"/>
-                <xs:attribute name="encoding" type="xs:string"/>
-                <xs:attribute name="force" type="xs:string"/>
+    <xs:complexType name="availableTask">
+        <xs:complexContent>
+            <xs:extension base="tns:available">
+                <xs:attribute name="property" type="xs:string" use="required"/>
+                <xs:attribute name="value" type="xs:string"/>
             </xs:extension>
-        </xs:simpleContent>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="basenameTask">
+        <xs:attribute name="file" type="xs:string" use="required"/>
+        <xs:attribute name="property" type="xs:string" use="required"/>
+        <xs:attribute name="suffix" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="conditionTask">
+        <xs:complexContent>
+            <xs:extension base="tns:condition">
+                <xs:attribute name="property" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="copyTask">
+        <xs:sequence minOccurs="0">
+            <xs:element name="fileset" type="tns:fileset"/>
+        </xs:sequence>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="preservelastmodified" type="xs:string"/>
+        <xs:attribute name="tofile" type="xs:string"/>
+        <xs:attribute name="todir" type="xs:string"/>
+        <xs:attribute name="overwrite" type="xs:string"/>
+        <xs:attribute name="force" type="xs:string"/>
+        <xs:attribute name="filtering" type="xs:string"/>
+        <xs:attribute name="flatten" type="xs:string"/>
+        <xs:attribute name="includeEmptyDirs" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="quiet" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="outputencoding" type="xs:string"/>
+        <xs:attribute name="enablemultiplemappings" type="xs:string"/>
+        <xs:attribute name="granularity" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="deleteTask">
@@ -188,10 +143,70 @@
         <xs:attribute name="performGCOnFailedDelete" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="mkdirTask">
-        <xs:attribute name="dir" use="required"/>
+    <xs:complexType name="dirnameTask">
+        <xs:attribute name="file" type="xs:string" use="required"/>
+        <xs:attribute name="property" type="xs:string" use="required"/>
     </xs:complexType>
 
+    <xs:complexType name="echoTask">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="message" type="xs:string"/>
+                <xs:attribute name="file" type="xs:string"/>
+                <xs:attribute name="output" type="xs:string"/>
+                <xs:attribute name="append" type="xs:string"/>
+                <xs:attribute name="level" type="xs:string"/>
+                <xs:attribute name="encoding" type="xs:string"/>
+                <xs:attribute name="force" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="failTask" mixed="true">
+        <xs:choice minOccurs="0">
+            <xs:element name="condition" type="tns:condition"/>
+        </xs:choice>
+        <xs:attribute name="message" type="xs:string"/>
+        <xs:attribute name="if" type="xs:string"/>
+        <xs:attribute name="unless" type="xs:string"/>
+        <xs:attribute name="status" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="jarTask">
+        <xs:sequence>
+            <xs:element name="manifest" type="tns:manifest"/>
+        </xs:sequence>
+        <xs:attribute name="destfile" type="xs:string" use="required"/>
+        <xs:attribute name="basedir" type="xs:string"/>
+        <xs:attribute name="compress" type="xs:string"/>
+        <xs:attribute name="keepcompression" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="filesonly" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="defaultexcludes" type="xs:string"/>
+        <xs:attribute name="manifest" type="xs:string"/>
+        <xs:attribute name="filesetmanifest" type="xs:string"/>
+        <xs:attribute name="update" type="xs:string"/>
+        <xs:attribute name="whenmanifestonly" type="xs:string"/>
+        <xs:attribute name="duplicate" type="xs:string"/>
+        <xs:attribute name="index" type="xs:string"/>
+        <xs:attribute name="indexMetaInf" type="xs:string"/>
+        <xs:attribute name="manifestencoding" type="xs:string"/>
+        <xs:attribute name="roundup" type="xs:string"/>
+        <xs:attribute name="level" type="xs:string"/>
+        <xs:attribute name="strict" type="xs:string"/>
+        <xs:attribute name="preserve0permissions" type="xs:string"/>
+        <xs:attribute name="useLanguageEncodingFlag" type="xs:string"/>
+        <xs:attribute name="createUnicodeExtraFields" type="xs:string"/>
+        <xs:attribute name="fallbacktoUTF8" type="xs:string"/>
+        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
+        <xs:attribute name="flattenAttributes" type="xs:string"/>
+        <xs:attribute name="zip64Mode" type="xs:string"/>
+
+    </xs:complexType>
     <xs:complexType name="javaTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="jvmarg" type="tns:jvmarg"/>
@@ -254,6 +269,46 @@
         <xs:attribute name="clonevm" type="xs:string"/>
     </xs:complexType>
 
+    <xs:complexType name="javacTask">
+        <xs:attribute name="srcdir" type="xs:string"/>
+        <xs:attribute name="destdir" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="sourcepath" type="xs:string"/>
+        <xs:attribute name="bootclasspath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="sourcepathref" type="xs:string"/>
+        <xs:attribute name="bootclasspathref" type="xs:string"/>
+        <xs:attribute name="extdirs" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="nowarn" type="xs:string"/>
+        <xs:attribute name="debug" type="xs:string"/>
+        <xs:attribute name="debuglevel" type="xs:string"/>
+        <xs:attribute name="optimize" type="xs:string"/>
+        <xs:attribute name="deprecation" type="xs:string"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
+        <xs:attribute name="depend" type="xs:string"/>
+        <xs:attribute name="includeAntRuntime" type="xs:string"/>
+        <xs:attribute name="includeJavaRuntime" type="xs:string"/>
+        <xs:attribute name="fork" type="xs:string"/>
+        <xs:attribute name="executable" type="xs:string"/>
+        <xs:attribute name="memoryInitialSize" type="xs:string"/>
+        <xs:attribute name="memoryMaximumSize" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="errorProperty" type="xs:string"/>
+        <xs:attribute name="source" type="xs:string"/>
+        <xs:attribute name="compiler" type="xs:string"/>
+        <xs:attribute name="listfiles" type="xs:string"/>
+        <xs:attribute name="tempdir" type="xs:string"/>
+        <xs:attribute name="updatedProperty" type="xs:string"/>
+        <xs:attribute name="includeDestClasses" type="xs:string"/>
+        <xs:attribute name="createMissingPackageInfoClass" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="junitTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="test">
@@ -311,6 +366,52 @@
         <xs:attribute name="threads" type="xs:string"/>
     </xs:complexType>
 
+    <xs:complexType name="macrodefTask">
+        <xs:sequence>
+            <xs:element name="attribute" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="default" type="xs:string"/>
+                    <xs:attribute name="description" type="xs:string"/>
+                    <xs:attribute name="doubleexpanding" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="element" minOccurs="0">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="optional" type="xs:string"/>
+                    <xs:attribute name="implicit" type="xs:string"/>
+                    <xs:attribute name="description" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sequential">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:group ref="tns:tasks"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="uri" type="xs:anyURI"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="backtrace" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="manifestTask">
+        <xs:complexContent>
+            <xs:extension base="tns:manifest">
+                <xs:attribute name="file" type="xs:string" use="required"/>
+                <xs:attribute name="mode" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="mkdirTask">
+        <xs:attribute name="dir" use="required"/>
+    </xs:complexType>
+
+    
     <xs:complexType name="pathconvertTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="path">
@@ -354,34 +455,21 @@
         <xs:attribute name="preserveduplicates" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="typedefTask">
+    <xs:complexType name="propertyTask">
         <xs:attribute name="name" type="xs:string"/>
-        <xs:attribute name="classname" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="location" type="xs:string"/>
+        <xs:attribute name="refid" type="xs:string"/>
         <xs:attribute name="resource" type="xs:string"/>
-        <xs:attribute name="format" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="url" type="xs:string"/>
+        <xs:attribute name="environment" type="xs:string"/>
         <xs:attribute name="classpath" type="xs:string"/>
         <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="loaderRef" type="xs:string"/>
-        <xs:attribute name="onerror" type="xs:string"/>
-        <xs:attribute name="adapter" type="xs:string"/>
-        <xs:attribute name="adaptto" type="xs:string"/>
-        <xs:attribute name="uri" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="touchTask">
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="millis" type="xs:string"/>
-        <xs:attribute name="datetime" type="xs:string"/>
-        <xs:attribute name="pattern" type="xs:string"/>
-        <xs:attribute name="mkdirs" type="xs:string"/>
-        <xs:attribute name="verbose" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="antcallTask">
-        <xs:attribute name="target" type="xs:string" use="required"/>
-        <xs:attribute name="inheritAll" type="xs:string"/>
-        <xs:attribute name="inheritRefs" type="xs:string"/>
+        <xs:attribute name="prefix" type="xs:string"/>
+        <xs:attribute name="prefixValues" type="xs:string"/>
+        <xs:attribute name="relative" type="xs:string"/>
+        <xs:attribute name="basedir" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="propertyfileTask">
@@ -403,42 +491,6 @@
         <xs:attribute name="jdkproperties" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="availableTask">
-        <xs:complexContent>
-            <xs:extension base="tns:available">
-                <xs:attribute name="property" type="xs:string" use="required"/>
-                <xs:attribute name="value" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="copyTask">
-        <xs:sequence minOccurs="0">
-            <xs:element name="fileset" type="tns:fileset"/>
-        </xs:sequence>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="preservelastmodified" type="xs:string"/>
-        <xs:attribute name="tofile" type="xs:string"/>
-        <xs:attribute name="todir" type="xs:string"/>
-        <xs:attribute name="overwrite" type="xs:string"/>
-        <xs:attribute name="force" type="xs:string"/>
-        <xs:attribute name="filtering" type="xs:string"/>
-        <xs:attribute name="flatten" type="xs:string"/>
-        <xs:attribute name="includeEmptyDirs" type="xs:string"/>
-        <xs:attribute name="failonerror" type="xs:string"/>
-        <xs:attribute name="quiet" type="xs:string"/>
-        <xs:attribute name="verbose" type="xs:string"/>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="outputencoding" type="xs:string"/>
-        <xs:attribute name="enablemultiplemappings" type="xs:string"/>
-        <xs:attribute name="granularity" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="dirnameTask">
-        <xs:attribute name="file" type="xs:string" use="required"/>
-        <xs:attribute name="property" type="xs:string" use="required"/>
-    </xs:complexType>
-
     <xs:complexType name="tempfileTask">
         <xs:attribute name="property" type="xs:string" use="required"/>
         <xs:attribute name="destdir" type="xs:string"/>
@@ -448,114 +500,140 @@
         <xs:attribute name="createfile" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="manifestTask">
-        <xs:complexContent>
-            <xs:extension base="tns:manifest">
-                <xs:attribute name="file" type="xs:string" use="required"/>
-                <xs:attribute name="mode" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="basenameTask">
-        <xs:attribute name="file" type="xs:string" use="required"/>
-        <xs:attribute name="property" type="xs:string" use="required"/>
-        <xs:attribute name="suffix" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="antTask">
-        <xs:sequence>
-            <xs:element name="propertyset" type="tns:propertySet"/>
-        </xs:sequence>
-        <xs:attribute name="antfile" type="xs:string"/>
-        <xs:attribute name="dir" type="xs:string"/>
-        <xs:attribute name="target" type="xs:string"/>
-        <xs:attribute name="output" type="xs:string"/>
-        <xs:attribute name="inheritall" type="xs:string"/>
-        <xs:attribute name="inheritAll" type="xs:string"/>
-        <xs:attribute name="inheritRefs" type="xs:string"/>
-        <xs:attribute name="useNativeBasedir" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="javacTask">
-        <xs:attribute name="srcdir" type="xs:string"/>
-        <xs:attribute name="destdir" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
-        <xs:attribute name="classpath" type="xs:string"/>
-        <xs:attribute name="sourcepath" type="xs:string"/>
-        <xs:attribute name="bootclasspath" type="xs:string"/>
-        <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="sourcepathref" type="xs:string"/>
-        <xs:attribute name="bootclasspathref" type="xs:string"/>
-        <xs:attribute name="extdirs" type="xs:string"/>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="nowarn" type="xs:string"/>
-        <xs:attribute name="debug" type="xs:string"/>
-        <xs:attribute name="debuglevel" type="xs:string"/>
-        <xs:attribute name="optimize" type="xs:string"/>
-        <xs:attribute name="deprecation" type="xs:string"/>
-        <xs:attribute name="target" type="xs:string"/>
+    <xs:complexType name="touchTask">
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="millis" type="xs:string"/>
+        <xs:attribute name="datetime" type="xs:string"/>
+        <xs:attribute name="pattern" type="xs:string"/>
+        <xs:attribute name="mkdirs" type="xs:string"/>
         <xs:attribute name="verbose" type="xs:string"/>
-        <xs:attribute name="depend" type="xs:string"/>
-        <xs:attribute name="includeAntRuntime" type="xs:string"/>
-        <xs:attribute name="includeJavaRuntime" type="xs:string"/>
-        <xs:attribute name="fork" type="xs:string"/>
-        <xs:attribute name="executable" type="xs:string"/>
-        <xs:attribute name="memoryInitialSize" type="xs:string"/>
-        <xs:attribute name="memoryMaximumSize" type="xs:string"/>
-        <xs:attribute name="failonerror" type="xs:string"/>
-        <xs:attribute name="errorProperty" type="xs:string"/>
-        <xs:attribute name="source" type="xs:string"/>
-        <xs:attribute name="compiler" type="xs:string"/>
-        <xs:attribute name="listfiles" type="xs:string"/>
-        <xs:attribute name="tempdir" type="xs:string"/>
-        <xs:attribute name="updatedProperty" type="xs:string"/>
-        <xs:attribute name="includeDestClasses" type="xs:string"/>
-        <xs:attribute name="createMissingPackageInfoClass" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="jarTask">
+    <xs:complexType name="typedefTask">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="format" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="loaderRef" type="xs:string"/>
+        <xs:attribute name="onerror" type="xs:string"/>
+        <xs:attribute name="adapter" type="xs:string"/>
+        <xs:attribute name="adaptto" type="xs:string"/>
+        <xs:attribute name="uri" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="antversion">
+        <xs:attribute name="atleast" type="xs:string"/>
+        <xs:attribute name="exactly" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="available">
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="filepath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="ignoresystemclasses" type="xs:string"/>
+        <xs:attribute name="searchparents" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="chainedmapper">
         <xs:sequence>
-            <xs:element name="manifest" type="tns:manifest"/>
+            <xs:element name="flattenmapper">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="filtermapper">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="replacestring">
+                            <xs:complexType>
+                                <xs:attribute name="from" use="required"/>
+                                <xs:attribute name="to" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="globmapper">
+                <xs:complexType>
+                    <xs:attribute name="from" use="required"/>
+                    <xs:attribute name="to" use="required"/>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="destfile" type="xs:string" use="required"/>
-        <xs:attribute name="basedir" type="xs:string"/>
-        <xs:attribute name="compress" type="xs:string"/>
-        <xs:attribute name="keepcompression" type="xs:string"/>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="filesonly" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
-        <xs:attribute name="defaultexcludes" type="xs:string"/>
-        <xs:attribute name="manifest" type="xs:string"/>
-        <xs:attribute name="filesetmanifest" type="xs:string"/>
-        <xs:attribute name="update" type="xs:string"/>
-        <xs:attribute name="whenmanifestonly" type="xs:string"/>
-        <xs:attribute name="duplicate" type="xs:string"/>
-        <xs:attribute name="index" type="xs:string"/>
-        <xs:attribute name="indexMetaInf" type="xs:string"/>
-        <xs:attribute name="manifestencoding" type="xs:string"/>
-        <xs:attribute name="roundup" type="xs:string"/>
-        <xs:attribute name="level" type="xs:string"/>
-        <xs:attribute name="strict" type="xs:string"/>
-        <xs:attribute name="preserve0permissions" type="xs:string"/>
-        <xs:attribute name="useLanguageEncodingFlag" type="xs:string"/>
-        <xs:attribute name="createUnicodeExtraFields" type="xs:string"/>
-        <xs:attribute name="fallbacktoUTF8" type="xs:string"/>
-        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
-        <xs:attribute name="flattenAttributes" type="xs:string"/>
-        <xs:attribute name="zip64Mode" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
         <xs:group ref="tns:conditions"/>
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="else" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="fileset">
+        <xs:attribute name="dir" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="defaultexcludes" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="casesensitive" type="xs:string"/>
+        <xs:attribute name="followsymlinks" type="xs:string"/>
+        <xs:attribute name="erroronmissingdir" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="jvmarg">
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="path" type="xs:string"/>
+        <xs:attribute name="pathref" type="xs:string"/>
+        <xs:attribute name="line" type="xs:string"/>
+        <xs:attribute name="prefix" type="xs:string"/>
+        <xs:attribute name="suffix" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="manifest">
+        <xs:sequence>
+            <xs:element name="attribute">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="value" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
+        <xs:attribute name="unless" type="xs:string"/>
+        <xs:attribute name="flattenAttributes" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="mapper">
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="classname" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="from" type="xs:string"/>
+        <xs:attribute name="to" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="propertySet">
+        <xs:sequence>
+            <xs:element name="propertyref" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="prefix" type="xs:string"/>
+                    <xs:attribute name="regex" type="xs:string"/>
+                    <xs:attribute name="builtin" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="mapper" type="tns:mapper"/>
+        </xs:sequence>
+        <xs:attribute name="dynamic" type="xs:string"/>
+        <xs:attribute name="negate" type="xs:string"/>
     </xs:complexType>
 
     <xs:group name="conditions">
@@ -632,110 +710,33 @@
         </xs:choice>
     </xs:group>
 
-    <xs:complexType name="propertySet">
-        <xs:sequence>
-            <xs:element name="propertyref" maxOccurs="unbounded">
-                <xs:complexType>
-                    <xs:attribute name="name" type="xs:string"/>
-                    <xs:attribute name="prefix" type="xs:string"/>
-                    <xs:attribute name="regex" type="xs:string"/>
-                    <xs:attribute name="builtin" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="mapper" type="tns:mapper"/>
-        </xs:sequence>
-        <xs:attribute name="dynamic" type="xs:string"/>
-        <xs:attribute name="negate" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="mapper">
-        <xs:attribute name="type" type="xs:string"/>
-        <xs:attribute name="classname" type="xs:string"/>
-        <xs:attribute name="classpath" type="xs:string"/>
-        <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="from" type="xs:string"/>
-        <xs:attribute name="to" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="chainedmapper">
-        <xs:sequence>
-            <xs:element name="flattenmapper">
-                <xs:complexType/>
-            </xs:element>
-            <xs:element name="filtermapper">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="replacestring">
-                            <xs:complexType>
-                                <xs:attribute name="from" use="required"/>
-                                <xs:attribute name="to" use="required"/>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="globmapper">
-                <xs:complexType>
-                    <xs:attribute name="from" use="required"/>
-                    <xs:attribute name="to" use="required"/>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="jvmarg">
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="path" type="xs:string"/>
-        <xs:attribute name="pathref" type="xs:string"/>
-        <xs:attribute name="line" type="xs:string"/>
-        <xs:attribute name="prefix" type="xs:string"/>
-        <xs:attribute name="suffix" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="fileset">
-        <xs:attribute name="dir" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="defaultexcludes" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
-        <xs:attribute name="casesensitive" type="xs:string"/>
-        <xs:attribute name="followsymlinks" type="xs:string"/>
-        <xs:attribute name="erroronmissingdir" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="available">
-        <xs:attribute name="classname" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="resource" type="xs:string"/>
-        <xs:attribute name="classpath" type="xs:string"/>
-        <xs:attribute name="filepath" type="xs:string"/>
-        <xs:attribute name="classpathref" type="xs:string"/>
-        <xs:attribute name="type" type="xs:string"/>
-        <xs:attribute name="ignoresystemclasses" type="xs:string"/>
-        <xs:attribute name="searchparents" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="antversion">
-        <xs:attribute name="atleast" type="xs:string"/>
-        <xs:attribute name="exactly" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="manifest">
-        <xs:sequence>
-            <xs:element name="attribute">
-                <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="value" type="xs:string" use="required"/>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
-        <xs:attribute name="unless" type="xs:string"/>
-        <xs:attribute name="flattenAttributes" type="xs:string"/>
-    </xs:complexType>
+    <xs:group name="tasks">
+        <xs:choice>
+            <xs:element name="property" type="tns:propertyTask"/>
+            <xs:element name="fail" type="tns:failTask"/>
+            <xs:element name="macrodef" type="tns:macrodefTask"/>
+            <xs:element name="condition" type="tns:conditionTask"/>
+            <xs:element name="delete" type="tns:deleteTask"/>
+            <xs:element name="echo" type="tns:echoTask"/>
+            <xs:element name="mkdir" type="tns:mkdirTask"/>
+            <xs:element name="touch" type="tns:touchTask"/>
+            <xs:element name="antcall" type="tns:antcallTask"/>
+            <xs:element name="propertyfile" type="tns:propertyfileTask"/>
+            <xs:element name="available" type="tns:availableTask"/>
+            <xs:element name="pathconvert" type="tns:pathconvertTask"/>
+            <xs:element name="copy" type="tns:copyTask"/>
+            <xs:element name="dirname" type="tns:dirnameTask"/>
+            <xs:element name="tempfile" type="tns:tempfileTask"/>
+            <xs:element name="manifest" type="tns:manifestTask"/>
+            <xs:element name="basename" type="tns:basenameTask"/>
+            <xs:element name="ant" type="tns:antTask"/>
+            <xs:element name="junit" type="tns:junitTask"/>
+            <xs:element name="java" type="tns:javaTask"/>
+            <xs:element name="taskdef" type="tns:typedefTask"/>
+            <xs:element name="javac" type="tns:javacTask"/>
+            <xs:element name="jar" type="tns:jarTask"/>
+            <xs:any namespace="##other" processContents="lax" />
+        </xs:choice>
+    </xs:group>
 
 </xs:schema>
