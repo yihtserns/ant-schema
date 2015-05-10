@@ -93,11 +93,10 @@
     </xs:complexType>
 
     <xs:complexType name="conditionTask">
-        <xs:complexContent>
-            <xs:extension base="tns:condition">
-                <xs:attribute name="property" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
+        <xs:group ref="tns:conditions"/>
+        <xs:attribute name="property" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="copyTask">
@@ -163,9 +162,13 @@
     </xs:complexType>
 
     <xs:complexType name="failTask" mixed="true">
-        <xs:choice minOccurs="0">
-            <xs:element name="condition" type="tns:condition"/>
-        </xs:choice>
+        <xs:sequence minOccurs="0">
+            <xs:element name="condition">
+                <xs:complexType>
+                    <xs:group ref="tns:conditions"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
         <xs:attribute name="message" type="xs:string"/>
         <xs:attribute name="if" type="xs:string"/>
         <xs:attribute name="unless" type="xs:string"/>
@@ -565,12 +568,6 @@
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="condition">
-        <xs:group ref="tns:conditions"/>
-        <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="fileset">
