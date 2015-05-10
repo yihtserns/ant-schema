@@ -20,19 +20,19 @@
            version="1.0"
            elementFormDefault="qualified">
 
-    <xs:element name="project" type="tns:antProject"/>
-
-    <xs:complexType name="antProject">
-        <xs:choice maxOccurs="unbounded">
-            <xs:element name="target" type="tns:target"/>
-            <xs:element name="fail" type="tns:failTask"/>
-            <xs:element name="condition" type="tns:conditionTask"/>
-            <xs:element name="property" type="tns:propertyTask"/>
-        </xs:choice>
-        <xs:attribute name="basedir" type="xs:string"/>
-        <xs:attribute name="default" type="xs:string"/>
-        <xs:attribute name="name" type="xs:string"/>
-    </xs:complexType>
+    <xs:element name="project">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="target" type="tns:target"/>
+                <xs:element name="fail" type="tns:failTask"/>
+                <xs:element name="condition" type="tns:conditionTask"/>
+                <xs:element name="property" type="tns:propertyTask"/>
+            </xs:choice>
+            <xs:attribute name="basedir" type="xs:string"/>
+            <xs:attribute name="default" type="xs:string"/>
+            <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 
     <xs:complexType name="target">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
