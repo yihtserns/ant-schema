@@ -640,34 +640,35 @@
                     <xs:group ref="tns:conditions"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="or">
+            <xs:element name="and">
                 <xs:complexType>
-                    <xs:choice maxOccurs="unbounded">
+                    <xs:choice minOccurs="2" maxOccurs="unbounded">
                         <xs:group ref="tns:conditions"/>
                     </xs:choice>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="and">
+            <xs:element name="or">
                 <xs:complexType>
-                    <xs:choice maxOccurs="unbounded">
+                    <xs:choice minOccurs="2" maxOccurs="unbounded">
+                        <xs:group ref="tns:conditions"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="xor">
+                <xs:complexType>
+                    <xs:choice minOccurs="2" maxOccurs="unbounded">
                         <xs:group ref="tns:conditions"/>
                     </xs:choice>
                 </xs:complexType>
             </xs:element>
             <xs:element name="available" type="tns:available"/>
-            <xs:element name="antversion" type="tns:antversion"/>
-            <xs:element name="isset">
+            <!--<xs:element name="uptodate" type="tns:uptodateTask"/>-->
+            <xs:element name="os">
                 <xs:complexType>
-                    <xs:attribute name="property" use="required"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="matches">
-                <xs:complexType>
-                    <xs:attribute name="string" type="xs:string" use="required"/>
-                    <xs:attribute name="pattern" type="xs:string"/>
-                    <xs:attribute name="casesensitive" type="xs:string"/>
-                    <xs:attribute name="multiline" type="xs:string"/>
-                    <xs:attribute name="singleline" type="xs:string"/>
+                    <xs:attribute name="family" type="xs:string"/>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="arch" type="xs:string"/>
+                    <xs:attribute name="version" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
             <xs:element name="equals">
@@ -677,6 +678,32 @@
                     <xs:attribute name="casesensitive" type="xs:string"/>
                     <xs:attribute name="trim" type="xs:string"/>
                     <xs:attribute name="forcestring" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isset">
+                <xs:complexType>
+                    <xs:attribute name="property" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <!--<xs:element name="checksum" type="tns:checksumTask"/>-->
+            <xs:element name="http">
+                <xs:complexType>
+                    <xs:attribute name="url" type="xs:string" use="required"/>
+                    <xs:attribute name="errorsBeginAt" type="xs:string"/>
+                    <xs:attribute name="requestMethod" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="socket">
+                <xs:complexType>
+                    <xs:attribute name="server" type="xs:string" use="required"/>
+                    <xs:attribute name="port" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="filesmatch">
+                <xs:complexType>
+                    <xs:attribute name="file1" type="xs:string" use="required"/>
+                    <xs:attribute name="file2" type="xs:string" use="required"/>
+                    <xs:attribute name="textfile" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
             <xs:element name="contains">
@@ -696,14 +723,128 @@
                     <xs:attribute name="value" type="xs:string" use="required"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="os">
+            <xs:element name="isreference">
                 <xs:complexType>
-                    <xs:attribute name="family" type="xs:string"/>
-                    <xs:attribute name="name" type="xs:string"/>
-                    <xs:attribute name="arch" type="xs:string"/>
-                    <xs:attribute name="version" type="xs:string"/>
+                    <xs:attribute name="refid" type="xs:string" use="required"/>
+                    <xs:attribute name="type" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="issigned">
+                <xs:complexType>
+                    <xs:attribute name="file" type="xs:string" use="required"/>
+                    <xs:attribute name="name" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <!--            <xs:element name="isfileselected">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="selector" type="tns:selector"/>
+                    </xs:sequence>
+                    <xs:attribute name="file" type="xs:string" use="required"/>
+                    <xs:attribute name="basedir" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>-->
+            <xs:element name="typefound">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="uri" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <!--            <xs:element name="scriptcondition">
+                <xs:complexType>
+                    <xs:attribute name="language" type="xs:string" use="required"/>
+                    <xs:attribute name="manager" type="xs:string"/>
+                    <xs:attribute name="value" type="xs:string"/>
+                    <xs:attribute name="src" type="xs:string"/>
+                    <xs:attribute name="setbeans" type="xs:string"/>
+                    <xs:attribute name="classpath" type="xs:string"/>
+                    <xs:attribute name="classpathref" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>-->
+            <xs:element name="parsersupports">
+                <xs:complexType>
+                    <xs:attribute name="property" type="xs:string"/>
+                    <xs:attribute name="feature" type="xs:string"/>
+                    <xs:attribute name="value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isreachable">
+                <xs:complexType>
+                    <xs:attribute name="host" type="xs:string"/>
+                    <xs:attribute name="url" type="xs:string"/>
+                    <xs:attribute name="timeout" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <!--<xs:element name="length" type="tns:lengthTask"/>-->
+            <xs:element name="isfailure">
+                <xs:complexType>
+                    <xs:attribute name="code" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <!--<xs:element name="resourcecount" type="tns:resourcecountTask"/>-->
+            <!--            <xs:element name="resourcesmatch">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:group ref="resourceCollections"/>
+                    </xs:sequence>
+                    <xs:attribute name="astext" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>-->
+            <xs:element name="resourcecontains">
+                <xs:complexType>
+                    <xs:attribute name="resource" type="xs:string"/>
+                    <xs:attribute name="refid" type="xs:string"/>
+                    <xs:attribute name="substring" type="xs:string" use="required"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="hasmethod">
+                <xs:complexType>
+                    <xs:attribute name="classname" type="xs:string" use="required"/>
+                    <xs:attribute name="field" type="xs:string"/>
+                    <xs:attribute name="method" type="xs:string"/>
+                    <xs:attribute name="ignoreSystemClasses" type="xs:string"/>
+                    <xs:attribute name="classpath" type="xs:string"/>
+                    <xs:attribute name="classpathref" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <!--            <xs:element name="matches">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="regexp" type="tns:regexp"/>
+                    </xs:sequence>
+                    <xs:attribute name="string" type="xs:string" use="required"/>
+                    <xs:attribute name="pattern" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="multiline" type="xs:string"/>
+                    <xs:attribute name="singleline" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>-->
+            <xs:element name="antversion" type="tns:antversion"/>
+            <xs:element name="hasfreespace">
+                <xs:complexType>
+                    <xs:attribute name="partition" type="xs:string" use="required"/>
+                    <xs:attribute name="needed" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <!--            <xs:element name="islastmodified">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="???" type="tns:resourceCollections"/>
+                    </xs:sequence>
+                    <xs:attribute name="millis" type="xs:string"/>
+                    <xs:attribute name="datetime" type="xs:string"/>
+                    <xs:attribute name="pattern" type="xs:string"/>
+                    <xs:attribute name="mode" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>-->
+            <!--            <xs:element name="resourceexists">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="???" type="tns:resourceCollections"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>-->
         </xs:choice>
     </xs:group>
 
