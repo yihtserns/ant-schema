@@ -807,18 +807,18 @@
                     <xs:attribute name="classpathref" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <!--            <xs:element name="matches">
+            <xs:element name="matches">
                 <xs:complexType>
-                    <xs:sequence>
+                    <!--                    <xs:sequence>
                         <xs:element name="regexp" type="tns:regexp"/>
-                    </xs:sequence>
+                    </xs:sequence>-->
                     <xs:attribute name="string" type="xs:string" use="required"/>
                     <xs:attribute name="pattern" type="xs:string"/>
                     <xs:attribute name="casesensitive" type="xs:string"/>
                     <xs:attribute name="multiline" type="xs:string"/>
                     <xs:attribute name="singleline" type="xs:string"/>
                 </xs:complexType>
-            </xs:element>-->
+            </xs:element>
             <xs:element name="antversion" type="tns:antversion"/>
             <xs:element name="hasfreespace">
                 <xs:complexType>
