@@ -15,8 +15,8 @@
     limitations under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://ant.apache.org/schema/ant"
-           xmlns:tns="http://ant.apache.org/schema/ant"
+           targetNamespace="antlib:org.apache.tools.ant"
+           xmlns:tns="antlib:org.apache.tools.ant"
            version="1.0"
            elementFormDefault="qualified">
 
