@@ -35,6 +35,19 @@
 
     <xs:complexType name="target">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="tns:tasks"/>
+        </xs:choice>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="depends" type="xs:string"/>
+        <xs:attribute name="if" type="xs:string"/>
+        <xs:attribute name="unless" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="extensionOf" type="xs:string"/>
+        <xs:attribute name="onMissingExtensionPoint" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:group name="tasks">
+        <xs:choice>
             <xs:element name="property" type="tns:propertyTask"/>
             <xs:element name="fail" type="tns:failTask"/>
             <xs:element name="macrodef" type="tns:macrodefTask"/>
@@ -53,16 +66,12 @@
             <xs:element name="manifest" type="tns:manifestTask"/>
             <xs:element name="basename" type="tns:basenameTask"/>
             <xs:element name="ant" type="tns:antTask"/>
+            <xs:element name="junit" type="tns:junitTask"/>
+            <xs:element name="java" type="tns:javaTask"/>
+            <xs:element name="taskdef" type="tns:typedefTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="depends" type="xs:string"/>
-        <xs:attribute name="if" type="xs:string"/>
-        <xs:attribute name="unless" type="xs:string"/>
-        <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="extensionOf" type="xs:string"/>
-        <xs:attribute name="onMissingExtensionPoint" type="xs:string"/>
-    </xs:complexType>
+    </xs:group>
 
     <xs:complexType name="failTask" mixed="true">
         <xs:choice minOccurs="0">
@@ -128,16 +137,7 @@
             <xs:element name="sequential">
                 <xs:complexType>
                     <xs:choice maxOccurs="unbounded">
-                        <xs:element name="condition" type="tns:conditionTask"/>
-                        <xs:element name="property" type="tns:propertyTask"/>
-                        <xs:element name="echo" type="tns:echoTask"/>
-                        <xs:element name="junit" type="tns:junitTask"/>
-                        <xs:element name="delete" type="tns:deleteTask"/>
-                        <xs:element name="mkdir" type="tns:mkdirTask"/>
-                        <xs:element name="java" type="tns:javaTask"/>
-                        <xs:element name="pathconvert" type="tns:pathconvertTask"/>
-                        <xs:element name="taskdef" type="tns:typedefTask"/>
-                        <xs:any namespace="##other" processContents="lax" />
+                        <xs:group ref="tns:tasks"/>
                     </xs:choice>
                 </xs:complexType>
             </xs:element>
