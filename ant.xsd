@@ -69,6 +69,7 @@
             <xs:element name="junit" type="tns:junitTask"/>
             <xs:element name="java" type="tns:javaTask"/>
             <xs:element name="taskdef" type="tns:typedefTask"/>
+            <xs:element name="javac" type="tns:javacTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
     </xs:group>
@@ -478,6 +479,46 @@
         <xs:attribute name="inheritAll" type="xs:string"/>
         <xs:attribute name="inheritRefs" type="xs:string"/>
         <xs:attribute name="useNativeBasedir" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="javacTask">
+        <xs:attribute name="srcdir" type="xs:string"/>
+        <xs:attribute name="destdir" type="xs:string"/>
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:attribute name="classpath" type="xs:string"/>
+        <xs:attribute name="sourcepath" type="xs:string"/>
+        <xs:attribute name="bootclasspath" type="xs:string"/>
+        <xs:attribute name="classpathref" type="xs:string"/>
+        <xs:attribute name="sourcepathref" type="xs:string"/>
+        <xs:attribute name="bootclasspathref" type="xs:string"/>
+        <xs:attribute name="extdirs" type="xs:string"/>
+        <xs:attribute name="encoding" type="xs:string"/>
+        <xs:attribute name="nowarn" type="xs:string"/>
+        <xs:attribute name="debug" type="xs:string"/>
+        <xs:attribute name="debuglevel" type="xs:string"/>
+        <xs:attribute name="optimize" type="xs:string"/>
+        <xs:attribute name="deprecation" type="xs:string"/>
+        <xs:attribute name="target" type="xs:string"/>
+        <xs:attribute name="verbose" type="xs:string"/>
+        <xs:attribute name="depend" type="xs:string"/>
+        <xs:attribute name="includeAntRuntime" type="xs:string"/>
+        <xs:attribute name="includeJavaRuntime" type="xs:string"/>
+        <xs:attribute name="fork" type="xs:string"/>
+        <xs:attribute name="executable" type="xs:string"/>
+        <xs:attribute name="memoryInitialSize" type="xs:string"/>
+        <xs:attribute name="memoryMaximumSize" type="xs:string"/>
+        <xs:attribute name="failonerror" type="xs:string"/>
+        <xs:attribute name="errorProperty" type="xs:string"/>
+        <xs:attribute name="source" type="xs:string"/>
+        <xs:attribute name="compiler" type="xs:string"/>
+        <xs:attribute name="listfiles" type="xs:string"/>
+        <xs:attribute name="tempdir" type="xs:string"/>
+        <xs:attribute name="updatedProperty" type="xs:string"/>
+        <xs:attribute name="includeDestClasses" type="xs:string"/>
+        <xs:attribute name="createMissingPackageInfoClass" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="condition">
