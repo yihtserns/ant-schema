@@ -305,7 +305,7 @@
         <xs:attribute name="enableTestListenerEvents" type="xs:string"/>
         <xs:attribute name="threads" type="xs:string"/>
     </xs:complexType>
-    
+
     <xs:complexType name="pathconvertTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="path">
@@ -481,19 +481,32 @@
     </xs:complexType>
 
     <xs:complexType name="condition">
-        <xs:complexContent>
-            <xs:extension base="tns:conditions">
-                <xs:attribute name="value" type="xs:string"/>
-                <xs:attribute name="else" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
+        <xs:group ref="tns:conditions"/>
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="conditions">
-        <xs:choice maxOccurs="unbounded">
-            <xs:element name="not" type="tns:conditions"/>
-            <xs:element name="or" type="tns:conditions"/>
-            <xs:element name="and" type="tns:conditions"/>
+    <xs:group name="conditions">
+        <xs:choice>
+            <xs:element name="not">
+                <xs:complexType>
+                    <xs:group ref="tns:conditions"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="or">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:group ref="tns:conditions"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="and">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded">
+                        <xs:group ref="tns:conditions"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="available" type="tns:available"/>
             <xs:element name="antversion" type="tns:antversion"/>
             <xs:element name="isset">
@@ -545,7 +558,7 @@
                 </xs:complexType>
             </xs:element>
         </xs:choice>
-    </xs:complexType>
+    </xs:group>
 
     <xs:complexType name="propertySet">
         <xs:sequence>
