@@ -27,6 +27,7 @@
             <xs:element name="target" type="tns:target"/>
             <xs:element name="fail" type="tns:failTask"/>
             <xs:element name="condition" type="tns:conditionTask"/>
+            <xs:element name="property" type="tns:propertyTask"/>
         </xs:choice>
         <xs:attribute name="basedir" type="xs:string"/>
         <xs:attribute name="default" type="xs:string"/>
