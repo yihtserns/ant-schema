@@ -849,29 +849,29 @@
 
     <xs:group name="tasks">
         <xs:choice>
-            <xs:element name="property" type="tns:propertyTask"/>
-            <xs:element name="fail" type="tns:failTask"/>
-            <xs:element name="macrodef" type="tns:macrodefTask"/>
-            <xs:element name="condition" type="tns:conditionTask"/>
-            <xs:element name="delete" type="tns:deleteTask"/>
-            <xs:element name="echo" type="tns:echoTask"/>
-            <xs:element name="mkdir" type="tns:mkdirTask"/>
-            <xs:element name="touch" type="tns:touchTask"/>
-            <xs:element name="antcall" type="tns:antcallTask"/>
-            <xs:element name="propertyfile" type="tns:propertyfileTask"/>
-            <xs:element name="available" type="tns:availableTask"/>
-            <xs:element name="pathconvert" type="tns:pathconvertTask"/>
-            <xs:element name="copy" type="tns:copyTask"/>
-            <xs:element name="dirname" type="tns:dirnameTask"/>
-            <xs:element name="tempfile" type="tns:tempfileTask"/>
-            <xs:element name="manifest" type="tns:manifestTask"/>
-            <xs:element name="basename" type="tns:basenameTask"/>
             <xs:element name="ant" type="tns:antTask"/>
-            <xs:element name="junit" type="tns:junitTask"/>
-            <xs:element name="java" type="tns:javaTask"/>
-            <xs:element name="taskdef" type="tns:typedefTask"/>
-            <xs:element name="javac" type="tns:javacTask"/>
+            <xs:element name="antcall" type="tns:antcallTask"/>
+            <xs:element name="available" type="tns:availableTask"/>
+            <xs:element name="basename" type="tns:basenameTask"/>
+            <xs:element name="condition" type="tns:conditionTask"/>
+            <xs:element name="copy" type="tns:copyTask"/>
+            <xs:element name="delete" type="tns:deleteTask"/>
+            <xs:element name="dirname" type="tns:dirnameTask"/>
+            <xs:element name="echo" type="tns:echoTask"/>
+            <xs:element name="fail" type="tns:failTask"/>
             <xs:element name="jar" type="tns:jarTask"/>
+            <xs:element name="java" type="tns:javaTask"/>
+            <xs:element name="javac" type="tns:javacTask"/>
+            <xs:element name="junit" type="tns:junitTask"/>
+            <xs:element name="macrodef" type="tns:macrodefTask"/>
+            <xs:element name="manifest" type="tns:manifestTask"/>
+            <xs:element name="mkdir" type="tns:mkdirTask"/>
+            <xs:element name="pathconvert" type="tns:pathconvertTask"/>
+            <xs:element name="property" type="tns:propertyTask"/>
+            <xs:element name="propertyfile" type="tns:propertyfileTask"/>
+            <xs:element name="taskdef" type="tns:typedefTask"/>
+            <xs:element name="tempfile" type="tns:tempfileTask"/>
+            <xs:element name="touch" type="tns:touchTask"/>
             <xs:any namespace="##other" processContents="lax" />
         </xs:choice>
     </xs:group>
