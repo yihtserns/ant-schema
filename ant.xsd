@@ -93,7 +93,7 @@
 
     <xs:complexType name="conditionTask">
         <xs:group ref="tns:conditions"/>
-        <xs:attribute name="property" type="xs:string"/>
+        <xs:attribute name="property" type="xs:string" use="required"/>
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="else" type="xs:string"/>
     </xs:complexType>
