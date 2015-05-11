@@ -99,7 +99,7 @@
     </xs:complexType>
 
     <xs:complexType name="copyTask">
-        <xs:sequence minOccurs="0">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:group ref="tns:resourceCollections"/>
         </xs:sequence>
         <xs:attribute name="file" type="xs:string"/>
@@ -570,10 +570,19 @@
     </xs:complexType>
 
     <xs:complexType name="files">
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="tns:patterns"/>
+            <xs:group ref="tns:selectors"/>
+            <xs:element name="patternset">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:group ref="tns:patterns"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="tns:patternAttributes"/>
         <xs:attribute name="defaultexcludes" type="xs:string"/>
         <xs:attribute name="casesensitive" type="xs:string"/>
         <xs:attribute name="followsymlinks" type="xs:string"/>
@@ -628,6 +637,13 @@
         <xs:attribute name="dynamic" type="xs:string"/>
         <xs:attribute name="negate" type="xs:string"/>
     </xs:complexType>
+
+    <xs:attributeGroup name="patternAttributes">
+        <xs:attribute name="includes" type="xs:string"/>
+        <xs:attribute name="includesfile" type="xs:string"/>
+        <xs:attribute name="excludes" type="xs:string"/>
+        <xs:attribute name="excludesfile" type="xs:string"/>
+    </xs:attributeGroup>
 
     <xs:group name="conditions">
         <xs:choice>
@@ -844,6 +860,25 @@
         </xs:choice>
     </xs:group>
 
+    <xs:group name="patterns">
+        <xs:choice>
+            <xs:element name="include">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="if" type="xs:string"/>
+                    <xs:attribute name="unless" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="exclude">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="if" type="xs:string"/>
+                    <xs:attribute name="unless" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+                            
     <xs:group name="resourceCollections">
         <xs:choice>
             <xs:element name="fileset">
@@ -858,6 +893,19 @@
                 </xs:complexType>
             </xs:element>
             <xs:element name="files" type="tns:files"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="selectors">
+        <xs:choice>
+            <xs:element name="filename">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string"/>
+                    <xs:attribute name="regex" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="negate" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
         </xs:choice>
     </xs:group>
 
