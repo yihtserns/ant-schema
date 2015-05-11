@@ -915,6 +915,7 @@
                             
     <xs:group name="resourceCollections">
         <xs:choice>
+            <xs:group ref="tns:resources"/>
             <xs:element name="fileset">
                 <xs:complexType>
                     <xs:complexContent>
@@ -927,6 +928,40 @@
                 </xs:complexType>
             </xs:element>
             <xs:element name="files" type="tns:files"/>
+            <xs:element name="first">
+                <xs:complexType>
+                    <xs:group ref="tns:resourceCollections"/>
+                    <xs:attribute name="count" type="xs:string"/>
+                    <xs:attribute name="cache" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="resources">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:group ref="tns:resources"/>
+                    </xs:sequence>
+                    <xs:attribute name="cache" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="resources">
+        <xs:choice>
+            <xs:element name="file">
+                <xs:complexType>
+                    <xs:attribute name="file" type="xs:string" use="required"/>
+                    <xs:attribute name="basedir" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="url">
+                <xs:complexType>
+                    <xs:attribute name="url" type="xs:string"/>
+                    <xs:attribute name="file" type="xs:string"/>
+                    <xs:attribute name="baseUrl" type="xs:string"/>
+                    <xs:attribute name="relativePath" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
         </xs:choice>
     </xs:group>
 
