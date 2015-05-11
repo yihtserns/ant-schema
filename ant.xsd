@@ -130,11 +130,6 @@
         <xs:attribute name="quiet" type="xs:string"/>
         <xs:attribute name="failonerror" type="xs:string"/>
         <xs:attribute name="includeemptydirs" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
-        <xs:attribute name="defaultexcludes" type="xs:string"/>
         <xs:attribute name="deleteonexit" type="xs:string"/>
         <xs:attribute name="followsymlinks" type="xs:string"/>
         <xs:attribute name="removeNotFollowedSymlinks" type="xs:string"/>
@@ -207,8 +202,8 @@
         <xs:attribute name="mergeClassPathAttributes" type="xs:string"/>
         <xs:attribute name="flattenAttributes" type="xs:string"/>
         <xs:attribute name="zip64Mode" type="xs:string"/>
-
     </xs:complexType>
+
     <xs:complexType name="javaTask">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="jvmarg" type="tns:jvmarg"/>
@@ -247,13 +242,11 @@
         </xs:choice>
         <xs:attribute name="classname" type="xs:string"/>
         <xs:attribute name="jar" type="xs:string"/>
-        <xs:attribute name="args" type="xs:string"/>
         <xs:attribute name="classpath" type="xs:string"/>
         <xs:attribute name="classpathref" type="xs:string"/>
         <xs:attribute name="fork" type="xs:string"/>
         <xs:attribute name="spawn" type="xs:string"/>
         <xs:attribute name="jvm" type="xs:string"/>
-        <xs:attribute name="jvmargs" type="xs:string"/>
         <xs:attribute name="maxmemory" type="xs:string"/>
         <xs:attribute name="failonerror" type="xs:string"/>
         <xs:attribute name="resultproperty" type="xs:string"/>
