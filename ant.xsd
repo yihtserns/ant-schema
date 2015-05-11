@@ -91,6 +91,24 @@
         <xs:attribute name="suffix" type="xs:string"/>
     </xs:complexType>
 
+    <xs:complexType name="checksumTask">
+        <xs:sequence minOccurs="0">
+            <xs:group ref="tns:resourceCollections"/>
+        </xs:sequence>
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="todir" type="xs:string"/>
+        <xs:attribute name="algorithm" type="xs:string"/>
+        <xs:attribute name="provider" type="xs:string"/>
+        <xs:attribute name="fileext" type="xs:string"/>
+        <xs:attribute name="property" type="xs:string"/>
+        <xs:attribute name="pattern" type="xs:string"/>
+        <xs:attribute name="format" type="xs:string"/>
+        <xs:attribute name="totalproperty" type="xs:string"/>
+        <xs:attribute name="forceoverwrite" type="xs:string"/>
+        <xs:attribute name="verifyproperty" type="xs:string"/>
+        <xs:attribute name="readbuffersize" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="conditionTask">
         <xs:group ref="tns:conditions"/>
         <xs:attribute name="property" type="xs:string" use="required"/>
@@ -704,7 +722,7 @@
                     <xs:attribute name="property" use="required"/>
                 </xs:complexType>
             </xs:element>
-            <!--<xs:element name="checksum" type="tns:checksumTask"/>-->
+            <xs:element name="checksum" type="tns:checksumTask"/>
             <xs:element name="http">
                 <xs:complexType>
                     <xs:attribute name="url" type="xs:string" use="required"/>
@@ -931,6 +949,7 @@
             <xs:element name="antcall" type="tns:antcallTask"/>
             <xs:element name="available" type="tns:availableTask"/>
             <xs:element name="basename" type="tns:basenameTask"/>
+            <xs:element name="checksum" type="tns:checksumTask"/>
             <xs:element name="condition" type="tns:conditionTask"/>
             <xs:element name="copy" type="tns:copyTask"/>
             <xs:element name="delete" type="tns:deleteTask"/>
