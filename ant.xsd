@@ -356,17 +356,16 @@
     </xs:complexType>
 
     <xs:complexType name="lengthTask">
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:group ref="tns:resourceCollections"/>
-        </xs:sequence>
-        <xs:attribute name="property" type="xs:string"/>
-        <xs:attribute name="file" type="xs:string"/>
-        <xs:attribute name="resource" type="xs:string"/>
-        <xs:attribute name="string" type="xs:string"/>
-        <xs:attribute name="mode" type="xs:string"/>
-        <xs:attribute name="trim" type="xs:string"/>
-        <xs:attribute name="length" type="xs:string"/>
-        <xs:attribute name="when" type="xs:string"/>
+        <xs:complexContent>
+            <xs:extension base="tns:length">
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:group ref="tns:resourceCollections"/>
+                </xs:sequence>
+                <xs:attribute name="property" type="xs:string"/>
+                <xs:attribute name="mode" type="xs:string"/>
+                <xs:attribute name="length" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="macrodefTask">
@@ -599,6 +598,13 @@
         <xs:attribute name="suffix" type="xs:string"/>
     </xs:complexType>
 
+    <xs:complexType name="length">
+        <xs:attribute name="file" type="xs:string"/>
+        <xs:attribute name="resource" type="xs:string"/>
+        <xs:attribute name="string" type="xs:string"/>
+        <xs:attribute name="trim" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="manifest">
         <xs:sequence>
             <xs:element name="attribute">
@@ -788,7 +794,16 @@
                     <xs:attribute name="timeout" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <!--<xs:element name="length" type="tns:lengthTask"/>-->
+            <xs:element name="length">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="tns:length">
+                            <xs:attribute name="length" type="xs:string" use="required"/>
+                            <xs:attribute name="when" type="xs:string"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="isfailure">
                 <xs:complexType>
                     <xs:attribute name="code" type="xs:string" use="required"/>
