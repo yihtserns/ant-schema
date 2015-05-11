@@ -241,17 +241,7 @@
                     <xs:attribute name="binaryOutput" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="classpath">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="path">
-                            <xs:complexType>
-                                <xs:attribute name="path" type="xs:string"/>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="classpath" type="tns:classpath"/>
             <xs:element name="syspropertyset" type="tns:propertySet"/>
             <xs:any namespace="##any" processContents="lax"/>
         </xs:choice>
@@ -587,6 +577,20 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="classpath">
+        <xs:choice maxOccurs="unbounded">
+            <xs:group ref="tns:fileResourceCollections"/>
+            <xs:element name="pathelement">
+                <xs:complexType>
+                    <xs:attribute name="path" type="xs:string"/>
+                    <xs:attribute name="location" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+        <xs:attribute name="path" type="xs:string"/>
+        <xs:attribute name="location" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="files">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:group ref="tns:patterns"/>
@@ -894,6 +898,22 @@
         </xs:choice>
     </xs:group>
 
+    <xs:group name="fileResourceCollections">
+        <xs:choice>
+            <xs:element name="fileset">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="tns:files">
+                            <xs:attribute name="dir" type="xs:string"/>
+                            <xs:attribute name="file" type="xs:string"/>
+                            <xs:attribute name="erroronmissingdir" type="xs:string"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
     <xs:group name="patterns">
         <xs:choice>
             <xs:element name="include">
@@ -916,17 +936,7 @@
     <xs:group name="resourceCollections">
         <xs:choice>
             <xs:group ref="tns:resources"/>
-            <xs:element name="fileset">
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="tns:files">
-                            <xs:attribute name="dir" type="xs:string"/>
-                            <xs:attribute name="file" type="xs:string"/>
-                            <xs:attribute name="erroronmissingdir" type="xs:string"/>
-                        </xs:extension>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
+            <xs:group ref="tns:fileResourceCollections"/>
             <xs:element name="files" type="tns:files"/>
             <xs:element name="first">
                 <xs:complexType>
