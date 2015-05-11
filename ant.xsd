@@ -173,16 +173,13 @@
         <xs:sequence>
             <xs:element name="manifest" type="tns:manifest"/>
         </xs:sequence>
+        <xs:attributeGroup ref="tns:patternAttributes"/>
         <xs:attribute name="destfile" type="xs:string" use="required"/>
         <xs:attribute name="basedir" type="xs:string"/>
         <xs:attribute name="compress" type="xs:string"/>
         <xs:attribute name="keepcompression" type="xs:string"/>
         <xs:attribute name="encoding" type="xs:string"/>
         <xs:attribute name="filesonly" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
         <xs:attribute name="defaultexcludes" type="xs:string"/>
         <xs:attribute name="manifest" type="xs:string"/>
         <xs:attribute name="filesetmanifest" type="xs:string"/>
@@ -265,12 +262,9 @@
     </xs:complexType>
 
     <xs:complexType name="javacTask">
+        <xs:attributeGroup ref="tns:patternAttributes"/>
         <xs:attribute name="srcdir" type="xs:string"/>
         <xs:attribute name="destdir" type="xs:string"/>
-        <xs:attribute name="includes" type="xs:string"/>
-        <xs:attribute name="includesfile" type="xs:string"/>
-        <xs:attribute name="excludes" type="xs:string"/>
-        <xs:attribute name="excludesfile" type="xs:string"/>
         <xs:attribute name="classpath" type="xs:string"/>
         <xs:attribute name="sourcepath" type="xs:string"/>
         <xs:attribute name="bootclasspath" type="xs:string"/>
