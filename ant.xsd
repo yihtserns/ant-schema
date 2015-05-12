@@ -434,35 +434,12 @@
     
     <xs:complexType name="pathconvertTask">
         <xs:choice maxOccurs="unbounded">
-            <xs:element name="path">
-                <xs:complexType>
-                    <xs:attribute name="path" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
+            <xs:group ref="tns:resourceCollections"/>
             <xs:element name="chainedmapper" type="tns:chainedmapper"/>
             <xs:element name="map">
                 <xs:complexType>
                     <xs:attribute name="from" type="xs:string" use="required"/>
                     <xs:attribute name="to" type="xs:string" use="required"/>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="dirset">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="include">
-                            <xs:complexType>
-                                <xs:attribute name="name" type="xs:string"/>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                    <xs:attribute name="dir" type="xs:string" use="required"/>
-                    <xs:attribute name="includes" type="xs:string"/>
-                    <xs:attribute name="includesfile" type="xs:string"/>
-                    <xs:attribute name="excludes" type="xs:string"/>
-                    <xs:attribute name="excludesfile" type="xs:string"/>
-                    <xs:attribute name="casesensitive" type="xs:string"/>
-                    <xs:attribute name="followsymlinks" type="xs:string"/>
-                    <xs:attribute name="erroronmissingdir" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
         </xs:choice>
@@ -902,6 +879,19 @@
                     <xs:attribute name="dir" type="xs:string"/>
                     <xs:attribute name="file" type="xs:string"/>
                     <xs:attribute name="defaultexcludes" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="followsymlinks" type="xs:string"/>
+                    <xs:attribute name="erroronmissingdir" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="dirset">
+                <xs:complexType>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:group ref="tns:patternset"/>
+                        <xs:group ref="tns:selectors"/>
+                    </xs:choice>
+                    <xs:attributeGroup ref="tns:patternset"/>
+                    <xs:attribute name="dir" type="xs:string" use="required"/>
                     <xs:attribute name="casesensitive" type="xs:string"/>
                     <xs:attribute name="followsymlinks" type="xs:string"/>
                     <xs:attribute name="erroronmissingdir" type="xs:string"/>
