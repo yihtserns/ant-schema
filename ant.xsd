@@ -201,7 +201,7 @@
         <xs:sequence>
             <xs:element name="manifest" type="tns:manifest"/>
         </xs:sequence>
-        <xs:attributeGroup ref="tns:patternAttributes"/>
+        <xs:attributeGroup ref="tns:patternset"/>
         <xs:attribute name="destfile" type="xs:string" use="required"/>
         <xs:attribute name="basedir" type="xs:string"/>
         <xs:attribute name="compress" type="xs:string"/>
@@ -280,7 +280,7 @@
     </xs:complexType>
 
     <xs:complexType name="javacTask">
-        <xs:attributeGroup ref="tns:patternAttributes"/>
+        <xs:attributeGroup ref="tns:patternset"/>
         <xs:attribute name="srcdir" type="xs:string"/>
         <xs:attribute name="destdir" type="xs:string"/>
         <xs:attribute name="classpath" type="xs:string"/>
@@ -587,17 +587,6 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="files">
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:group ref="tns:patternset"/>
-            <xs:group ref="tns:selectors"/>
-        </xs:choice>
-        <xs:attributeGroup ref="tns:patternAttributes"/>
-        <xs:attribute name="defaultexcludes" type="xs:string"/>
-        <xs:attribute name="casesensitive" type="xs:string"/>
-        <xs:attribute name="followsymlinks" type="xs:string"/>
-    </xs:complexType>
-
     <xs:complexType name="jvmarg">
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="file" type="xs:string"/>
@@ -670,7 +659,7 @@
         <xs:attribute name="negate" type="xs:string"/>
     </xs:complexType>
 
-    <xs:attributeGroup name="patternAttributes">
+    <xs:attributeGroup name="patternset">
         <xs:attribute name="includes" type="xs:string"/>
         <xs:attribute name="includesfile" type="xs:string"/>
         <xs:attribute name="excludes" type="xs:string"/>
@@ -905,13 +894,17 @@
         <xs:choice>
             <xs:element name="fileset">
                 <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="tns:files">
-                            <xs:attribute name="dir" type="xs:string"/>
-                            <xs:attribute name="file" type="xs:string"/>
-                            <xs:attribute name="erroronmissingdir" type="xs:string"/>
-                        </xs:extension>
-                    </xs:complexContent>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:group ref="tns:patternset"/>
+                        <xs:group ref="tns:selectors"/>
+                    </xs:choice>
+                    <xs:attributeGroup ref="tns:patternset"/>
+                    <xs:attribute name="dir" type="xs:string"/>
+                    <xs:attribute name="file" type="xs:string"/>
+                    <xs:attribute name="defaultexcludes" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="followsymlinks" type="xs:string"/>
+                    <xs:attribute name="erroronmissingdir" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
             <xs:element name="path" type="tns:path"/>
@@ -955,7 +948,18 @@
         <xs:choice>
             <xs:group ref="tns:resources"/>
             <xs:group ref="tns:fileResourceCollections"/>
-            <xs:element name="files" type="tns:files"/>
+            <xs:element name="files">
+                <xs:complexType>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:group ref="tns:patternset"/>
+                        <xs:group ref="tns:selectors"/>
+                    </xs:choice>
+                    <xs:attributeGroup ref="tns:patternset"/>
+                    <xs:attribute name="defaultexcludes" type="xs:string"/>
+                    <xs:attribute name="casesensitive" type="xs:string"/>
+                    <xs:attribute name="followsymlinks" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="first">
                 <xs:complexType>
                     <xs:group ref="tns:resourceCollections"/>
