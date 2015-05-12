@@ -589,16 +589,8 @@
 
     <xs:complexType name="files">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:group ref="tns:patterns"/>
+            <xs:group ref="tns:patternset"/>
             <xs:group ref="tns:selectors"/>
-            <xs:element name="patternset">
-                <xs:complexType>
-                    <xs:sequence maxOccurs="unbounded">
-                        <xs:group ref="tns:patterns"/>
-                    </xs:sequence>
-                    <xs:attribute name="id" type="xs:string"/>
-                </xs:complexType>
-            </xs:element>
         </xs:choice>
         <xs:attributeGroup ref="tns:patternAttributes"/>
         <xs:attribute name="defaultexcludes" type="xs:string"/>
@@ -940,6 +932,20 @@
                     <xs:attribute name="name" type="xs:string" use="required"/>
                     <xs:attribute name="if" type="xs:string"/>
                     <xs:attribute name="unless" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="patternset">
+        <xs:choice>
+            <xs:group ref="tns:patterns"/>
+            <xs:element name="patternset">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:group ref="tns:patternset"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string"/>
                 </xs:complexType>
             </xs:element>
         </xs:choice>
